@@ -6,6 +6,14 @@ This project now includes:
 - `.github/workflows/deploy-vm.yml` for CI + auto deploy on `main`
 - `backend/.env.prod.example` as the production env template
 
+## Shared VM safety (important)
+
+This setup is tuned to avoid impacting other apps on the same VM:
+
+- Uses a dedicated compose project name: `skill-intelligence`
+- Does not run destructive cleanup commands like `docker system prune`
+- Frontend binds to `127.0.0.1:${APP_HOST_PORT:-8088}` instead of host port `80`
+
 ## 1) One-time VM setup
 
 SSH to your server:
@@ -48,6 +56,12 @@ Create production env file:
 
 ```bash
 cp backend/.env.prod.example backend/.env
+
+# Optional: choose a host port that does not conflict with other services
+echo "APP_HOST_PORT=8088" > .env
+
+# Keep Docker resources isolated from other projects on this VM
+export COMPOSE_PROJECT_NAME=skill-intelligence
 ```
 
 Edit `backend/.env` and set at least:
@@ -60,7 +74,7 @@ Start once manually:
 ```bash
 docker compose -f docker-compose.prod.yml up -d --build
 docker compose -f docker-compose.prod.yml ps
-curl http://localhost/api/health
+curl http://127.0.0.1:8088/api/health
 ```
 
 ## 2) Configure GitHub Actions secrets
@@ -81,7 +95,7 @@ On every push to `main`:
 3. SSH into VM
 4. `git pull --ff-only origin main`
 5. `docker compose -f docker-compose.prod.yml up -d --build`
-6. Health check: `curl http://localhost/api/health`
+6. API health check runs inside the `api` container (does not rely on host ports)
 
 ## 4) Recommended hardening
 

@@ -56,7 +56,9 @@ services:
     depends_on:
       - api
     ports:
-      - "80:80"
+      # Bind to localhost and a non-standard host port to avoid clashing
+      # with other projects/services running on the same VM.
+      - "127.0.0.1:${APP_HOST_PORT:-8088}:80"
 
 volumes:
   pgdata:
