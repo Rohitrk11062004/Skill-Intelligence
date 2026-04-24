@@ -50,4 +50,14 @@ jobs:
           export COMPOSE_PROJECT_NAME=skill-intelligence
           docker compose -f docker-compose.prod.yml up -d --build
           docker compose -f docker-compose.prod.yml ps
-          docker compose -f docker-compose.prod.yml exec -T api sh -c "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=5); print('ok')\""
+          # API can take a few seconds to boot after container recreate; retry health check.
+          for i in $(seq 1 20); do
+            if docker compose -f docker-compose.prod.yml exec -T api sh -c "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=5); print('ok')\""; then
+              exit 0
+            fi
+            echo "Health check attempt $i/20 failed, retrying in 3s..."
+            sleep 3
+          done
+          echo "API health check failed after retries."
+          docker compose -f docker-compose.prod.yml logs --tail=120 api
+          exit 1
