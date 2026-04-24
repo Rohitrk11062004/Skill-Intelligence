@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body { 
+    @apply font-body bg-surface-dim text-on-surface; 
+  }
+}
+
+@layer utilities {
+  .glass-panel { 
+    background: rgba(39, 44, 57, 0.4); 
+    backdrop-filter: blur(16px); 
+  }
+}
+
+/* Material symbols config */
+.material-symbols-outlined { 
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; 
+}
+.glow-primary { 
+  box-shadow: 0 0 20px rgba(105, 156, 255, 0.15); 
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0c0e14; }
+::-webkit-scrollbar-thumb { background: #272c39; border-radius: 10px; }

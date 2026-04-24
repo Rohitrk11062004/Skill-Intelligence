@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkillLens - Assessment Summary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#0c0e14",
+                        "on-surface-variant": "#a7aab9",
+                        "on-tertiary-fixed-variant": "#006948",
+                        "on-error-container": "#ff9993",
+                        "on-secondary-container": "#90aa9d",
+                        "tertiary-container": "#8bf8c4",
+                        "error": "#ff716c",
+                        "outline-variant": "#444854",
+                        "surface-container-high": "#1c1f29",
+                        "error-dim": "#c94947",
+                        "primary": "#699cff",
+                        "secondary-container": "#132a21",
+                        "secondary-dim": "#a5bfb2",
+                        "on-secondary-fixed": "#364d43",
+                        "surface-container-lowest": "#000000",
+                        "outline": "#717583",
+                        "surface-bright": "#272c39",
+                        "on-tertiary-fixed": "#004931",
+                        "secondary-fixed-dim": "#cee9db",
+                        "primary-fixed-dim": "#8fb3ff",
+                        "tertiary-dim": "#7ce9b7",
+                        "surface-container-highest": "#222631",
+                        "on-background": "#e2e5f4",
+                        "tertiary-fixed-dim": "#7ce9b7",
+                        "on-error": "#490006",
+                        "inverse-primary": "#005bc4",
+                        "background": "#0c0e14",
+                        "surface-dim": "#0c0e14",
+                        "on-surface": "#e2e5f4",
+                        "surface-container": "#161922",
+                        "error-container": "#8a1a1e",
+                        "secondary": "#b3ccbf",
+                        "primary-dim": "#699cff",
+                        "primary-fixed": "#a5c1ff",
+                        "on-tertiary": "#006747",
+                        "surface-tint": "#699cff",
+                        "on-primary-fixed": "#002659",
+                        "on-primary-fixed-variant": "#004292",
+                        "on-secondary": "#2e453b",
+                        "surface-variant": "#222631",
+                        "inverse-surface": "#faf8ff",
+                        "on-secondary-fixed-variant": "#52695f",
+                        "tertiary": "#beffdc",
+                        "on-primary-container": "#000311",
+                        "on-tertiary-container": "#005e40",
+                        "surface-container-low": "#11131a",
+                        "primary-container": "#4388fd",
+                        "tertiary-fixed": "#8bf8c4",
+                        "secondary-fixed": "#dcf7e9",
+                        "inverse-on-surface": "#53555c",
+                        "on-primary": "#001e4a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "display": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #0c0e14; color: #e2e5f4; font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        .glass-panel { background: rgba(39, 44, 57, 0.6); backdrop-filter: blur(16px); }
+        .skill-orbit { position: relative; border-radius: 50%; border: 2px solid rgba(105, 156, 255, 0.2); }
+        .skill-orbit::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid #699cff; clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 50%); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#0c0e14]/80 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(67,136,253,0.06)] flex justify-between items-center px-8 h-20">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">filter_vintage</span>
+<span class="text-xl font-bold tracking-tighter text-white uppercase">SkillLens</span>
+</div>
+<div class="hidden md:flex items-center gap-6 h-20 pt-4">
+<a class="text-[#a7aab9] hover:text-white pb-4 transition-colors duration-200 font-medium text-[0.875rem] tracking-wide" href="#">Dashboard</a>
+<a class="text-[#a7aab9] hover:text-white pb-4 transition-colors duration-200 font-medium text-[0.875rem] tracking-wide" href="#">Upload JDs</a>
+<a class="text-[#a7aab9] hover:text-white pb-4 transition-colors duration-200 font-medium text-[0.875rem] tracking-wide" href="#">Skill Taxonomy</a>
+<a class="text-[#a7aab9] hover:text-white pb-4 transition-colors duration-200 font-medium text-[0.875rem] tracking-wide" href="#">Learning Paths</a>
+<a class="text-[#699cff] border-b-2 border-[#699cff] pb-4 transition-all duration-300 font-medium text-[0.875rem] tracking-wide" href="#">Assessments</a>
+<a class="text-[#a7aab9] hover:text-white pb-4 transition-colors duration-200 font-medium text-[0.875rem] tracking-wide" href="#">Reports</a>
+<a class="text-[#a7aab9] hover:text-white pb-4 transition-colors duration-200 font-medium text-[0.875rem] tracking-wide" href="#">Settings</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer group-hover:text-primary transition-colors">search</span>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-error rounded-full"></span>
+</div>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant/30">
+<div class="text-right hidden sm:block">
+<p class="text-[0.875rem] font-semibold text-white leading-none">Rohit R</p>
+<p class="text-[0.75rem] text-on-surface-variant leading-none mt-1">Senior Architect</p>
+</div>
+<img class="w-10 h-10 rounded-xl object-cover ring-2 ring-primary/20" data-alt="close up professional headshot of a smiling man in tech attire with clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgwhCzbnxrpvj2WQxTwXzlJZUP14F4qTck7VzIKe2xdfY4Dx0DXrTBVVDSJ9QZwgRLbL2BBrv4fp6EQqbICmuf--ZcCTpzExCp9HZ1NjzRfeflRUhN-o7n6YqWWtoGj8Gx5-Hwv91TbfIhK-U-_jd7LmXpmM4wIAPR6hC2ODButy2owPjIBcgSPHWLue4DOZd33eHiGUzEKBlFj_rC_lshXpaz81O40-lB9JForL4wYOOrUfSim81vbNX6xfcs1OCdsp8hec7EWd3l"/>
+</div>
+</div>
+</nav>
+<main class="pt-28 pb-12 px-8 max-w-[1600px] mx-auto">
+<!-- Header -->
+<header class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+<div>
+<h1 class="text-[2.5rem] font-bold tracking-tight text-white mb-2">Assessment Summary</h1>
+<p class="text-on-surface-variant font-medium text-lg max-w-2xl">Track skill proficiency assessments and identify development gaps through deep cognitive mapping.</p>
+</div>
+<button class="bg-gradient-to-r from-primary to-primary-container text-on-primary font-semibold px-8 py-4 rounded-xl shadow-[0_0_20px_rgba(105,156,254,0.3)] hover:scale-[1.02] active:scale-[0.98] transition-all">
+                Take New Assessment
+            </button>
+</header>
+<!-- Metrics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+<div class="bg-surface-container p-6 rounded-xl border-l-4 border-primary shadow-lg">
+<p class="text-label-md text-on-surface-variant tracking-wider uppercase mb-1">Assessments Completed</p>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-bold text-white">12</span>
+<span class="text-xs text-on-surface-variant">Last: 3 days ago</span>
+</div>
+</div>
+<div class="bg-surface-container p-6 rounded-xl border-l-4 border-tertiary shadow-lg">
+<p class="text-label-md text-on-surface-variant tracking-wider uppercase mb-1">Average Score</p>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-bold text-tertiary">78%</span>
+<span class="text-xs text-tertiary/80 font-medium">Above team average</span>
+</div>
+</div>
+<div class="bg-surface-container p-6 rounded-xl border-l-4 border-secondary shadow-lg">
+<p class="text-label-md text-on-surface-variant tracking-wider uppercase mb-1">Skills Assessed</p>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-bold text-white">42</span>
+<span class="text-xs text-on-surface-variant">Across 6 categories</span>
+</div>
+</div>
+<div class="bg-surface-container p-6 rounded-xl border-l-4 border-primary-fixed shadow-lg">
+<p class="text-label-md text-on-surface-variant tracking-wider uppercase mb-1">Proficiency Level</p>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-bold text-white">B1</span>
+<span class="text-xs text-on-surface-variant">6-7 years band</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- Left Column (60%) -->
+<div class="lg:w-[60%] space-y-8">
+<!-- Assessment History -->
+<section class="bg-surface-container p-8 rounded-xl">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-xl font-semibold text-white">Assessment History</h2>
+<button class="text-primary text-sm font-medium hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-separate border-spacing-y-3">
+<thead>
+<tr class="text-on-surface-variant text-xs uppercase tracking-widest">
+<th class="pb-4 font-semibold px-4">Skill Domain</th>
+<th class="pb-4 font-semibold">Score</th>
+<th class="pb-4 font-semibold">Badge</th>
+<th class="pb-4 font-semibold">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="bg-surface-container-low group hover:bg-surface-container-high transition-colors">
+<td class="py-4 px-4 rounded-l-lg border-l-4 border-tertiary-dim font-medium text-white">Python Proficiency</td>
+<td class="py-4 font-bold text-white">92%</td>
+<td class="py-4"><span class="bg-tertiary-container/10 text-tertiary-fixed px-2 py-1 rounded text-xs font-bold uppercase">Master</span></td>
+<td class="py-4 rounded-r-lg"><span class="text-tertiary font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-sm">check_circle</span> Passed</span></td>
+</tr>
+<tr class="bg-surface-container-low group hover:bg-surface-container-high transition-colors">
+<td class="py-4 px-4 rounded-l-lg border-l-4 border-tertiary-dim font-medium text-white">ML Fundamentals</td>
+<td class="py-4 font-bold text-white">85%</td>
+<td class="py-4"><span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-bold uppercase">Advanced</span></td>
+<td class="py-4 rounded-r-lg"><span class="text-tertiary font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-sm">check_circle</span> Passed</span></td>
+</tr>
+<tr class="bg-surface-container-low group hover:bg-surface-container-high transition-colors">
+<td class="py-4 px-4 rounded-l-lg border-l-4 border-primary font-medium text-white">Generative AI</td>
+<td class="py-4 font-bold text-white">78%</td>
+<td class="py-4"><span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-bold uppercase">Advanced</span></td>
+<td class="py-4 rounded-r-lg"><span class="text-tertiary font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-sm">check_circle</span> Passed</span></td>
+</tr>
+<tr class="bg-surface-container-low group hover:bg-surface-container-high transition-colors">
+<td class="py-4 px-4 rounded-l-lg border-l-4 border-primary font-medium text-white">Team Leadership</td>
+<td class="py-4 font-bold text-white">88%</td>
+<td class="py-4"><span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-bold uppercase">Advanced</span></td>
+<td class="py-4 rounded-r-lg"><span class="text-tertiary font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-sm">check_circle</span> Passed</span></td>
+</tr>
+<tr class="bg-surface-container-low group hover:bg-surface-container-high transition-colors">
+<td class="py-4 px-4 rounded-l-lg border-l-4 border-error font-medium text-white">API Design</td>
+<td class="py-4 font-bold text-white">72%</td>
+<td class="py-4"><span class="bg-surface-bright/50 text-white px-2 py-1 rounded text-xs font-bold uppercase">Intermediate</span></td>
+<td class="py-4 rounded-r-lg"><span class="text-error font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-sm">info</span> Needs Imprv.</span></td>
+</tr>
+<tr class="bg-surface-container-low group hover:bg-surface-container-high transition-colors">
+<td class="py-4 px-4 rounded-l-lg border-l-4 border-primary font-medium text-white">Communication</td>
+<td class="py-4 font-bold text-white">80%</td>
+<td class="py-4"><span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-bold uppercase">Advanced</span></td>
+<td class="py-4 rounded-r-lg"><span class="text-tertiary font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-sm">check_circle</span> Passed</span></td>
+</tr>
+<tr class="bg-surface-container-low group hover:bg-surface-container-high transition-colors">
+<td class="py-4 px-4 rounded-l-lg border-l-4 border-error-dim font-medium text-white">Fine-tuning LLMs</td>
+<td class="py-4 font-bold text-white">55%</td>
+<td class="py-4"><span class="bg-surface-bright text-on-surface-variant px-2 py-1 rounded text-xs font-bold uppercase">Basic</span></td>
+<td class="py-4 rounded-r-lg"><span class="text-error-dim font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-sm">error</span> Below Target</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Skill Proficiency Matrix -->
+<section class="bg-surface-container p-8 rounded-xl overflow-hidden">
+<h2 class="text-xl font-semibold text-white mb-6">Skill Proficiency Matrix</h2>
+<div class="grid grid-cols-8 gap-1 min-w-[500px]">
+<div class="col-span-1"></div>
+<div class="text-center text-[10px] text-on-surface-variant uppercase tracking-tighter py-2">T</div>
+<div class="text-center text-[10px] text-on-surface-variant uppercase tracking-tighter py-2">A1</div>
+<div class="text-center text-[10px] text-on-surface-variant uppercase tracking-tighter py-2">A2</div>
+<div class="text-center text-[10px] text-on-surface-variant uppercase tracking-tighter py-2">A3</div>
+<div class="text-center text-[10px] text-on-surface-variant uppercase tracking-tighter py-2">B1</div>
+<div class="text-center text-[10px] text-on-surface-variant uppercase tracking-tighter py-2">B2</div>
+<div class="text-center text-[10px] text-on-surface-variant uppercase tracking-tighter py-2">B3</div>
+<!-- Rows -->
+<div class="col-span-1 text-xs text-on-surface-variant py-3 font-medium">Python</div>
+<div class="bg-tertiary/20 rounded"></div><div class="bg-tertiary/40 rounded"></div><div class="bg-tertiary/60 rounded"></div><div class="bg-tertiary/80 rounded"></div><div class="bg-tertiary rounded shadow-[0_0_8px_rgba(190,255,220,0.4)]"></div><div class="bg-surface-container-highest rounded opacity-30"></div><div class="bg-surface-container-highest rounded opacity-30"></div>
+<div class="col-span-1 text-xs text-on-surface-variant py-3 font-medium">ML</div>
+<div class="bg-primary/20 rounded"></div><div class="bg-primary/40 rounded"></div><div class="bg-primary/60 rounded"></div><div class="bg-primary/80 rounded"></div><div class="bg-primary rounded"></div><div class="bg-surface-container-highest rounded opacity-30"></div><div class="bg-surface-container-highest rounded opacity-30"></div>
+<div class="col-span-1 text-xs text-on-surface-variant py-3 font-medium">Gen AI</div>
+<div class="bg-primary-container/20 rounded"></div><div class="bg-primary-container/40 rounded"></div><div class="bg-primary-container/60 rounded"></div><div class="bg-primary-container/80 rounded"></div><div class="bg-surface-container-highest rounded opacity-30"></div><div class="bg-surface-container-highest rounded opacity-30"></div><div class="bg-surface-container-highest rounded opacity-30"></div>
+<div class="col-span-1 text-xs text-on-surface-variant py-3 font-medium">Docker</div>
+<div class="bg-secondary/20 rounded"></div><div class="bg-secondary/40 rounded"></div><div class="bg-secondary/60 rounded"></div><div class="bg-surface-container-highest rounded opacity-30"></div><div class="bg-surface-container-highest rounded opacity-30"></div><div class="bg-surface-container-highest rounded opacity-30"></div><div class="bg-surface-container-highest rounded opacity-30"></div>
+<div class="col-span-1 text-xs text-on-surface-variant py-3 font-medium">REST API</div>
+<div class="bg-error-container/20 rounded"></div><div class="bg-error-container/40 rounded"></div><div class="bg-surface-container-highest rounded opacity-30"></div><div class="bg-surface-container-highest rounded opacity-30"></div><div class="bg-surface-container-highest rounded opacity-30"></div><div class="bg-surface-container-highest rounded opacity-30"></div><div class="bg-surface-container-highest rounded opacity-30"></div>
+<div class="col-span-1 text-xs text-on-surface-variant py-3 font-medium">Git</div>
+<div class="bg-tertiary/20 rounded"></div><div class="bg-tertiary/40 rounded"></div><div class="bg-tertiary/60 rounded"></div><div class="bg-tertiary/80 rounded"></div><div class="bg-surface-container-highest rounded opacity-30"></div><div class="bg-surface-container-highest rounded opacity-30"></div><div class="bg-surface-container-highest rounded opacity-30"></div>
+</div>
+</section>
+</div>
+<!-- Right Column (40%) -->
+<div class="lg:w-[40%] space-y-8">
+<!-- Performance Radar -->
+<section class="bg-surface-container p-8 rounded-xl h-fit">
+<h2 class="text-xl font-semibold text-white mb-8">Performance Radar</h2>
+<div class="relative w-full aspect-square max-w-[320px] mx-auto flex items-center justify-center">
+<!-- Abstract Radar UI Elements -->
+<div class="absolute inset-0 border border-outline-variant/20 rounded-full"></div>
+<div class="absolute inset-[20%] border border-outline-variant/20 rounded-full"></div>
+<div class="absolute inset-[40%] border border-outline-variant/20 rounded-full"></div>
+<div class="absolute inset-[60%] border border-outline-variant/20 rounded-full"></div>
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<polygon fill="rgba(105, 156, 255, 0.2)" points="50,10 85,30 90,70 50,90 10,70 15,30" stroke="#699cff" stroke-width="1"></polygon>
+<circle cx="50" cy="10" fill="#699cff" r="1.5"></circle>
+<circle cx="85" cy="30" fill="#699cff" r="1.5"></circle>
+<circle cx="90" cy="70" fill="#699cff" r="1.5"></circle>
+<circle cx="50" cy="90" fill="#699cff" r="1.5"></circle>
+<circle cx="10" cy="70" fill="#699cff" r="1.5"></circle>
+<circle cx="15" cy="30" fill="#699cff" r="1.5"></circle>
+</svg>
+<!-- Labels -->
+<span class="absolute top-0 text-[10px] uppercase font-bold tracking-widest text-primary">Technical</span>
+<span class="absolute right-0 top-1/4 translate-x-1/2 text-[10px] uppercase font-bold tracking-widest text-on-surface-variant">Domain</span>
+<span class="absolute right-0 bottom-1/4 translate-x-1/2 text-[10px] uppercase font-bold tracking-widest text-on-surface-variant">Team Mgmt</span>
+<span class="absolute bottom-0 text-[10px] uppercase font-bold tracking-widest text-on-surface-variant">People Mgmt</span>
+<span class="absolute left-0 bottom-1/4 -translate-x-1/2 text-[10px] uppercase font-bold tracking-widest text-on-surface-variant">Communication</span>
+<span class="absolute left-0 top-1/4 -translate-x-1/2 text-[10px] uppercase font-bold tracking-widest text-on-surface-variant">Behavioral</span>
+</div>
+</section>
+<!-- Strengths & Gaps -->
+<section class="bg-surface-container p-8 rounded-xl">
+<h2 class="text-xl font-semibold text-white mb-6">Strengths &amp; Gaps</h2>
+<div class="space-y-6">
+<div>
+<p class="text-xs font-bold text-tertiary uppercase tracking-widest mb-3">Strengths</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-tertiary/10 text-tertiary px-3 py-1 rounded-full text-sm font-medium border border-tertiary/20">Python</span>
+<span class="bg-tertiary/10 text-tertiary px-3 py-1 rounded-full text-sm font-medium border border-tertiary/20">Problem Solving</span>
+</div>
+</div>
+<div>
+<p class="text-xs font-bold text-error uppercase tracking-widest mb-3">Priority Gaps</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-error/10 text-error px-3 py-1 rounded-full text-sm font-medium border border-error/20">Fine-tuning</span>
+<span class="bg-error/10 text-error px-3 py-1 rounded-full text-sm font-medium border border-error/20">API Design</span>
+</div>
+</div>
+<div>
+<p class="text-xs font-bold text-primary-fixed uppercase tracking-widest mb-3">Improvement Areas</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-primary-fixed/10 text-primary-fixed px-3 py-1 rounded-full text-sm font-medium border border-primary-fixed/20">Gen AI</span>
+<span class="bg-primary-fixed/10 text-primary-fixed px-3 py-1 rounded-full text-sm font-medium border border-primary-fixed/20">Vision LLMs</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Upcoming Assessments -->
+<section class="glass-panel p-8 rounded-xl shadow-2xl relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-[60px]"></div>
+<h2 class="text-xl font-semibold text-white mb-6">Upcoming Assessments</h2>
+<div class="space-y-4">
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-highest/40 hover:bg-surface-container-highest transition-colors cursor-pointer">
+<div class="w-12 h-12 rounded-lg bg-surface-bright flex items-center justify-center font-bold text-primary border border-primary/20">
+                                25<br/><span class="text-[8px] uppercase">Apr</span>
+</div>
+<div class="flex-1">
+<p class="text-white font-semibold">Vision LLMs</p>
+<p class="text-xs text-on-surface-variant">Scheduled by Manager</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">arrow_forward_ios</span>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-highest/40 hover:bg-surface-container-highest transition-colors cursor-pointer">
+<div class="w-12 h-12 rounded-lg bg-surface-bright flex items-center justify-center font-bold text-on-surface-variant border border-outline-variant/20">
+                                30<br/><span class="text-[8px] uppercase">Apr</span>
+</div>
+<div class="flex-1">
+<p class="text-white font-semibold">Docker</p>
+<p class="text-xs text-on-surface-variant">Recertification</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">arrow_forward_ios</span>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-highest/40 hover:bg-surface-container-highest transition-colors cursor-pointer">
+<div class="w-12 h-12 rounded-lg bg-surface-bright flex items-center justify-center font-bold text-on-surface-variant border border-outline-variant/20">
+                                05<br/><span class="text-[8px] uppercase">May</span>
+</div>
+<div class="flex-1">
+<p class="text-white font-semibold">Speech LLMs</p>
+<p class="text-xs text-on-surface-variant">Optional Discovery</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">arrow_forward_ios</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Footer Actions -->
+<footer class="mt-12 pt-8 border-t border-outline-variant/20 flex flex-col sm:flex-row justify-between items-center gap-6">
+<div class="flex gap-4">
+<button class="bg-surface-container text-white px-6 py-3 rounded-xl border border-outline-variant/30 hover:bg-surface-container-high transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">download</span>
+                    Export Assessment Report
+                </button>
+<button class="bg-surface-container text-white px-6 py-3 rounded-xl border border-outline-variant/30 hover:bg-surface-container-high transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">groups</span>
+                    Compare with Team
+                </button>
+</div>
+<p class="text-on-surface-variant text-sm font-medium">Data refreshed 3 hours ago. Privacy protected by SkillLens Neural Encryption.</p>
+</footer>
+</main>
+</body></html>

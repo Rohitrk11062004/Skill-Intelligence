@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NeuralLens AI | SkillLens Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#0c0e14",
+                        "error-container": "#8a1a1e",
+                        "surface-container": "#161922",
+                        "surface-bright": "#272c39",
+                        "on-tertiary-fixed": "#004931",
+                        "on-error": "#490006",
+                        "secondary": "#b3ccbf",
+                        "on-primary-fixed": "#002659",
+                        "outline": "#717583",
+                        "primary-dim": "#699cff",
+                        "inverse-surface": "#faf8ff",
+                        "inverse-on-surface": "#53555c",
+                        "on-tertiary-container": "#005e40",
+                        "on-secondary-container": "#90aa9d",
+                        "on-surface": "#e2e5f4",
+                        "on-primary-container": "#000311",
+                        "surface-container-low": "#11131a",
+                        "error": "#ff716c",
+                        "surface-container-lowest": "#000000",
+                        "tertiary-fixed": "#8bf8c4",
+                        "on-surface-variant": "#a7aab9",
+                        "outline-variant": "#444854",
+                        "primary": "#699cff",
+                        "tertiary-container": "#8bf8c4",
+                        "surface": "#0c0e14",
+                        "surface-tint": "#699cff",
+                        "secondary-dim": "#a5bfb2",
+                        "primary-fixed": "#a5c1ff",
+                        "secondary-fixed": "#dcf7e9",
+                        "inverse-primary": "#005bc4",
+                        "surface-variant": "#222631",
+                        "background": "#0c0e14",
+                        "primary-container": "#4388fd",
+                        "secondary-fixed-dim": "#cee9db",
+                        "on-primary": "#001e4a",
+                        "on-secondary-fixed": "#364d43",
+                        "on-secondary-fixed-variant": "#52695f",
+                        "tertiary-fixed-dim": "#7ce9b7",
+                        "secondary-container": "#132a21",
+                        "surface-container-highest": "#222631",
+                        "on-error-container": "#ff9993",
+                        "on-primary-fixed-variant": "#004292",
+                        "surface-container-high": "#1c1f29",
+                        "primary-fixed-dim": "#8fb3ff",
+                        "tertiary-dim": "#7ce9b7",
+                        "on-background": "#e2e5f4",
+                        "on-tertiary": "#006747",
+                        "on-secondary": "#2e453b",
+                        "tertiary": "#beffdc",
+                        "error-dim": "#c94947",
+                        "on-tertiary-fixed-variant": "#006948"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "display": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #0c0e14; color: #e2e5f4; }
+        .glass-panel { background: rgba(39, 44, 57, 0.4); backdrop-filter: blur(16px); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glow-primary { box-shadow: 0 0 20px rgba(105, 156, 255, 0.15); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0c0e14; }
+        ::-webkit-scrollbar-thumb { background: #272c39; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-surface-dim selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar Execution -->
+<header class="fixed top-0 w-full z-50 bg-[#0c0e14]/80 backdrop-blur-lg shadow-[0_20px_50px_rgba(67,136,253,0.05)] bg-gradient-to-b from-[#11131a] to-transparent">
+<div class="flex items-center justify-between px-10 h-20 w-full">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-gradient-to-br from-primary to-primary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container text-xl" style="font-variation-settings: 'FILL' 1;">play_prism</span>
+</div>
+<span class="text-lg font-bold tracking-tighter text-white uppercase font-headline">NeuralLens AI</span>
+</div>
+<nav class="hidden md:flex items-center gap-6 font-['Inter'] font-medium tracking-tight text-sm">
+<a class="text-[#699cff] border-b border-[#699cff] pb-1 transition-all duration-300" href="#">Dashboard</a>
+<a class="text-[#a7aab9] hover:text-white hover:bg-[#272c39]/40 rounded-lg px-3 py-1 transition-all duration-300" href="#">JD Analytics</a>
+<a class="text-[#a7aab9] hover:text-white hover:bg-[#272c39]/40 rounded-lg px-3 py-1 transition-all duration-300" href="#">Skill Gap</a>
+<a class="text-[#a7aab9] hover:text-white hover:bg-[#272c39]/40 rounded-lg px-3 py-1 transition-all duration-300" href="#">Talent Map</a>
+<a class="text-[#a7aab9] hover:text-white hover:bg-[#272c39]/40 rounded-lg px-3 py-1 transition-all duration-300" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-lg">search</span>
+<input class="bg-surface-container-highest border-none rounded-xl pl-10 pr-4 py-2 text-sm focus:ring-1 focus:ring-primary/50 w-64 transition-all" placeholder="Global skill search..." type="text"/>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-[#272c39]/40 text-on-surface-variant transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant/30">
+<div class="text-right hidden lg:block">
+<p class="text-xs font-bold text-white leading-none">Rohit R</p>
+<p class="text-[10px] text-on-surface-variant">Admin Strategist</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-primary/20 object-cover" data-alt="portrait of a professional man in a dark studio setting with soft cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBURWS0iXoVdonCaqVqmdDiJZGB6HN7vK_UYI6xE8_IbgJs--sJjeJmUo0xzAW0esvxiJN9YGZUysDCah2udPsAW1RasJe8PBuWCvGBRDswkAax0Ir03rGDUDElnjJ-HNkHbujkWtixT_7adNY0TUpNIe7T4RHB9ZeOByls0LFdWFLN_5RMZH1QIQtQ-UOG76-FKyo-jyNnr2QlOYi8jfFpO8L_k28X2tf6H_7xkPSSpxgb3IxuiGsqikQ0-38gIH6fNMI--FKXkvR7"/>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-28 pb-12 px-10 max-w-[1600px] mx-auto">
+<!-- Hero Metrics -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+<!-- Metric 1 -->
+<div class="glass-panel p-6 rounded-xl border border-outline-variant/10 relative overflow-hidden group">
+<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-9xl">description</span>
+</div>
+<p class="text-[0.75rem] font-medium tracking-[0.05em] text-on-surface-variant uppercase mb-2">Total JDs Analyzed</p>
+<div class="flex items-baseline gap-2">
+<h2 class="text-4xl font-bold text-white">47</h2>
+<span class="text-xs text-primary font-medium tracking-tight">4 Departments</span>
+</div>
+<div class="mt-4 h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full w-3/4 bg-primary"></div>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="glass-panel p-6 rounded-xl border border-outline-variant/10 relative overflow-hidden group">
+<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-9xl">hub</span>
+</div>
+<p class="text-[0.75rem] font-medium tracking-[0.05em] text-on-surface-variant uppercase mb-2">Skills Extracted</p>
+<div class="flex items-baseline gap-2">
+<h2 class="text-4xl font-bold text-white">1,842</h2>
+<span class="text-xs text-tertiary-dim font-medium tracking-tight">+126 this week</span>
+</div>
+<div class="mt-4 flex gap-1">
+<div class="h-1 flex-1 bg-primary rounded-full"></div>
+<div class="h-1 flex-1 bg-primary rounded-full"></div>
+<div class="h-1 flex-1 bg-primary rounded-full"></div>
+<div class="h-1 flex-1 bg-primary/30 rounded-full"></div>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="glass-panel p-6 rounded-xl border border-outline-variant/10 relative overflow-hidden group">
+<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-9xl">verified_user</span>
+</div>
+<p class="text-[0.75rem] font-medium tracking-[0.05em] text-on-surface-variant uppercase mb-2">Avg Confidence</p>
+<div class="flex items-baseline gap-2">
+<h2 class="text-4xl font-bold text-white">0.87</h2>
+<span class="text-xs text-secondary-dim font-medium tracking-tight">Above threshold</span>
+</div>
+<div class="mt-4 flex items-center gap-2">
+<span class="text-[10px] text-on-surface-variant">Min Target: 0.82</span>
+<div class="h-px flex-grow bg-outline-variant/30"></div>
+</div>
+</div>
+<!-- Metric 4 -->
+<div class="glass-panel p-6 rounded-xl border border-outline-variant/10 relative overflow-hidden group">
+<div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-9xl">category</span>
+</div>
+<p class="text-[0.75rem] font-medium tracking-[0.05em] text-on-surface-variant uppercase mb-2">Skill Categories</p>
+<div class="flex items-baseline gap-2">
+<h2 class="text-4xl font-bold text-white">6</h2>
+<span class="text-xs text-on-surface-variant font-medium tracking-tight">Standardized Taxonomy</span>
+</div>
+<div class="mt-4 flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-primary border border-surface-dim"></div>
+<div class="w-6 h-6 rounded-full bg-tertiary border border-surface-dim"></div>
+<div class="w-6 h-6 rounded-full bg-secondary border border-surface-dim"></div>
+<div class="w-6 h-6 rounded-full bg-error-dim border border-surface-dim"></div>
+<div class="w-6 h-6 rounded-full bg-surface-bright border border-surface-dim flex items-center justify-center text-[8px] font-bold">+2</div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-10 gap-8">
+<!-- LEFT COLUMN (60%) -->
+<div class="lg:col-span-6 space-y-8">
+<!-- Skills by Category -->
+<section class="glass-panel p-8 rounded-xl border border-outline-variant/10">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="text-xl font-medium text-white mb-1">Skills by Category</h3>
+<p class="text-sm text-on-surface-variant">Distribution across neural taxonomy clusters</p>
+</div>
+<button class="text-primary text-sm font-medium flex items-center gap-1 hover:underline">
+                            View Deep Dive <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="space-y-5">
+<!-- Category Item 1 -->
+<div class="group">
+<div class="flex justify-between items-center mb-1.5">
+<span class="text-sm font-medium text-on-surface">Technical Skills</span>
+<span class="text-xs text-on-surface-variant">742 (40%)</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-[40%] bg-primary shadow-[0_0_8px_rgba(105,156,255,0.4)] transition-all group-hover:w-[42%]"></div>
+</div>
+</div>
+<!-- Category Item 2 -->
+<div class="group">
+<div class="flex justify-between items-center mb-1.5">
+<span class="text-sm font-medium text-on-surface">Domain Expertise</span>
+<span class="text-xs text-on-surface-variant">320 (17%)</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-[17%] bg-tertiary-dim shadow-[0_0_8px_rgba(124,233,183,0.4)]"></div>
+</div>
+</div>
+<!-- Category Item 3 -->
+<div class="group">
+<div class="flex justify-between items-center mb-1.5">
+<span class="text-sm font-medium text-on-surface">Team Management</span>
+<span class="text-xs text-on-surface-variant">156 (8%)</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-[8%] bg-secondary shadow-[0_0_8px_rgba(179,204,191,0.4)]"></div>
+</div>
+</div>
+<!-- Category Item 4 -->
+<div class="group">
+<div class="flex justify-between items-center mb-1.5">
+<span class="text-sm font-medium text-on-surface">People Management</span>
+<span class="text-xs text-on-surface-variant">210 (11%)</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-[11%] bg-primary-container"></div>
+</div>
+</div>
+<!-- Category Item 5 -->
+<div class="group">
+<div class="flex justify-between items-center mb-1.5">
+<span class="text-sm font-medium text-on-surface">Communication</span>
+<span class="text-xs text-on-surface-variant">198 (10%)</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-[10%] bg-outline"></div>
+</div>
+</div>
+<!-- Category Item 6 -->
+<div class="group">
+<div class="flex justify-between items-center mb-1.5">
+<span class="text-sm font-medium text-on-surface">Behavioral</span>
+<span class="text-xs text-on-surface-variant">216 (14%)</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-[14%] bg-surface-bright"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Extractions -->
+<section class="glass-panel p-8 rounded-xl border border-outline-variant/10">
+<h3 class="text-xl font-medium text-white mb-6">Recent Extractions</h3>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="text-on-surface-variant text-[0.75rem] uppercase tracking-wider">
+<th class="pb-4 font-medium">Role</th>
+<th class="pb-4 font-medium">Department</th>
+<th class="pb-4 font-medium">Skills Found</th>
+<th class="pb-4 font-medium text-center">Conf.</th>
+<th class="pb-4 font-medium text-right">Status</th>
+</tr>
+</thead>
+<tbody class="text-sm divide-y divide-outline-variant/10">
+<tr class="group hover:bg-surface-bright/20 transition-colors">
+<td class="py-4 font-medium text-white">AI/ML Lead</td>
+<td class="py-4 text-on-surface-variant">Engineering</td>
+<td class="py-4">
+<div class="flex gap-1">
+<span class="px-2 py-0.5 bg-primary/10 text-primary rounded text-[10px]">PyTorch</span>
+<span class="px-2 py-0.5 bg-primary/10 text-primary rounded text-[10px]">LLMs</span>
+<span class="text-[10px] text-on-surface-variant">+8</span>
+</div>
+</td>
+<td class="py-4 text-center">
+<span class="text-tertiary font-mono">0.96</span>
+</td>
+<td class="py-4 text-right">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-tertiary-fixed-dim/10 text-tertiary-fixed-dim text-[10px] font-bold">COMPLETED</span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-bright/20 transition-colors">
+<td class="py-4 font-medium text-white">AI/ML WhatsApp</td>
+<td class="py-4 text-on-surface-variant">Product</td>
+<td class="py-4">
+<div class="flex gap-1">
+<span class="px-2 py-0.5 bg-primary/10 text-primary rounded text-[10px]">NLP</span>
+<span class="px-2 py-0.5 bg-primary/10 text-primary rounded text-[10px]">APIs</span>
+</div>
+</td>
+<td class="py-4 text-center">
+<span class="text-tertiary font-mono">0.91</span>
+</td>
+<td class="py-4 text-right">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-tertiary-fixed-dim/10 text-tertiary-fixed-dim text-[10px] font-bold">COMPLETED</span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-bright/20 transition-colors">
+<td class="py-4 font-medium text-white">.NET Dev</td>
+<td class="py-4 text-on-surface-variant">Fintech</td>
+<td class="py-4">
+<div class="flex gap-1">
+<span class="px-2 py-0.5 bg-primary/10 text-primary rounded text-[10px]">C#</span>
+<span class="px-2 py-0.5 bg-primary/10 text-primary rounded text-[10px]">Azure</span>
+</div>
+</td>
+<td class="py-4 text-center">
+<span class="text-on-surface-variant font-mono">0.78</span>
+</td>
+<td class="py-4 text-right">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-primary-container/10 text-primary-container text-[10px] font-bold">PROCESSING</span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-bright/20 transition-colors">
+<td class="py-4 font-medium text-white">Security Analyst</td>
+<td class="py-4 text-on-surface-variant">Cloud Ops</td>
+<td class="py-4">
+<div class="flex gap-1">
+<span class="px-2 py-0.5 bg-primary/10 text-primary rounded text-[10px]">IAM</span>
+<span class="px-2 py-0.5 bg-primary/10 text-primary rounded text-[10px]">SOC2</span>
+</div>
+</td>
+<td class="py-4 text-center">
+<span class="text-error font-mono">0.42</span>
+</td>
+<td class="py-4 text-right">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-error-container/20 text-error text-[10px] font-bold">FLAGGED</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- RIGHT COLUMN (40%) -->
+<div class="lg:col-span-4 space-y-8">
+<!-- Pipeline Status -->
+<section class="glass-panel p-8 rounded-xl border border-outline-variant/10">
+<h3 class="text-lg font-medium text-white mb-6">Extraction Pipeline</h3>
+<div class="relative space-y-6">
+<div class="absolute left-[11px] top-2 bottom-2 w-px bg-outline-variant/30"></div>
+<!-- Step 1 -->
+<div class="flex gap-4 items-start relative z-10">
+<div class="w-6 h-6 rounded-full bg-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-on-tertiary font-bold">check</span>
+</div>
+<div>
+<p class="text-sm font-medium text-white">DOCX Parsing</p>
+<p class="text-[10px] text-on-surface-variant">Normalized 12 documents</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex gap-4 items-start relative z-10">
+<div class="w-6 h-6 rounded-full bg-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-on-tertiary font-bold">check</span>
+</div>
+<div>
+<p class="text-sm font-medium text-white">Labeling</p>
+<p class="text-[10px] text-on-surface-variant">Semantic tagging applied</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex gap-4 items-start relative z-10">
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center animate-pulse">
+<span class="material-symbols-outlined text-[14px] text-on-primary font-bold">neurology</span>
+</div>
+<div>
+<p class="text-sm font-medium text-primary">Gemini LLM Inference</p>
+<p class="text-[10px] text-on-surface-variant">Processing skill hierarchy...</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="flex gap-4 items-start relative z-10">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest border border-outline-variant/50 flex items-center justify-center"></div>
+<div>
+<p class="text-sm font-medium text-on-surface-variant">Post-Processing</p>
+</div>
+</div>
+<!-- Step 5 -->
+<div class="flex gap-4 items-start relative z-10">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest border border-outline-variant/50 flex items-center justify-center"></div>
+<div>
+<p class="text-sm font-medium text-on-surface-variant">QA Validation</p>
+</div>
+</div>
+<!-- Step 6 -->
+<div class="flex gap-4 items-start relative z-10">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest border border-outline-variant/50 flex items-center justify-center"></div>
+<div>
+<p class="text-sm font-medium text-on-surface-variant">JSON Schema Output</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Top Skills Cloud -->
+<section class="glass-panel p-8 rounded-xl border border-outline-variant/10">
+<h3 class="text-lg font-medium text-white mb-6">High Impact Clusters</h3>
+<div class="flex flex-wrap gap-2">
+<span class="px-4 py-1.5 bg-primary/20 text-primary rounded-lg text-sm font-medium border border-primary/20">Python</span>
+<span class="px-4 py-1.5 bg-primary-container/10 text-on-surface rounded-lg text-sm border border-outline-variant/20">React</span>
+<span class="px-4 py-1.5 bg-primary-container/10 text-on-surface rounded-lg text-sm border border-outline-variant/20">JavaScript</span>
+<span class="px-4 py-1.5 bg-tertiary-container/10 text-tertiary rounded-lg text-sm border border-tertiary/20">Docker</span>
+<span class="px-4 py-1.5 bg-primary-container/10 text-on-surface rounded-lg text-sm border border-outline-variant/20">AWS</span>
+<span class="px-4 py-1.5 bg-primary-container/10 text-on-surface rounded-lg text-sm border border-outline-variant/20">REST API</span>
+<span class="px-4 py-1.5 bg-primary-container/10 text-on-surface rounded-lg text-sm border border-outline-variant/20">Kubernetes</span>
+<span class="px-4 py-1.5 bg-primary-container/10 text-on-surface rounded-lg text-sm border border-outline-variant/20">PostgreSQL</span>
+<span class="px-4 py-1.5 bg-primary-container/10 text-on-surface rounded-lg text-sm border border-outline-variant/20">Agile</span>
+<span class="px-4 py-1.5 bg-primary-container/10 text-on-surface rounded-lg text-sm border border-outline-variant/20">TensorFlow</span>
+</div>
+</section>
+<!-- Quality Checks -->
+<section class="glass-panel p-8 rounded-xl border border-outline-variant/10">
+<h3 class="text-lg font-medium text-white mb-6">Neural Quality Checks</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-xl">verified</span>
+<span class="text-sm text-on-surface">Git Consistency</span>
+</div>
+<span class="text-[10px] text-tertiary-fixed font-bold uppercase tracking-tighter">Verified</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-xl">verified</span>
+<span class="text-sm text-on-surface">MS Office Taxonomy</span>
+</div>
+<span class="text-[10px] text-tertiary-fixed font-bold uppercase tracking-tighter">Verified</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl">cyclone</span>
+<span class="text-sm text-on-surface">Problem Solving Logic</span>
+</div>
+<span class="text-[10px] text-primary-dim font-bold uppercase tracking-tighter">Auditing</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error-dim text-xl">gpp_maybe</span>
+<span class="text-sm text-on-surface">Banned Modalities</span>
+</div>
+<span class="text-[10px] text-error font-bold uppercase tracking-tighter">Failed</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Floating Action Action (Contextual) -->
+<button class="fixed bottom-8 right-8 bg-gradient-to-r from-primary to-primary-container text-on-primary-container px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 font-bold text-sm hover:scale-105 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined">upload_file</span>
+        EXTRACT NEW SKILLS
+    </button>
+</body></html>

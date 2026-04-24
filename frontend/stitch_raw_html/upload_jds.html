@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Upload JDs | SkillLens</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#161922",
+                        "inverse-surface": "#faf8ff",
+                        "secondary-fixed-dim": "#cee9db",
+                        "surface": "#0c0e14",
+                        "on-error": "#490006",
+                        "inverse-on-surface": "#53555c",
+                        "on-error-container": "#ff9993",
+                        "on-primary-container": "#000311",
+                        "on-secondary": "#2e453b",
+                        "outline-variant": "#444854",
+                        "on-tertiary-container": "#005e40",
+                        "secondary": "#b3ccbf",
+                        "primary-fixed": "#a5c1ff",
+                        "surface-variant": "#222631",
+                        "primary-container": "#4388fd",
+                        "secondary-container": "#132a21",
+                        "surface-container-low": "#11131a",
+                        "on-surface": "#e2e5f4",
+                        "on-tertiary-fixed-variant": "#006948",
+                        "primary-dim": "#699cff",
+                        "on-primary": "#001e4a",
+                        "on-secondary-fixed": "#364d43",
+                        "on-background": "#e2e5f4",
+                        "tertiary-fixed": "#8bf8c4",
+                        "outline": "#717583",
+                        "tertiary-container": "#8bf8c4",
+                        "error": "#ff716c",
+                        "on-primary-fixed": "#002659",
+                        "tertiary-fixed-dim": "#7ce9b7",
+                        "secondary-dim": "#a5bfb2",
+                        "error-container": "#8a1a1e",
+                        "surface-dim": "#0c0e14",
+                        "on-tertiary-fixed": "#004931",
+                        "on-secondary-container": "#90aa9d",
+                        "background": "#0c0e14",
+                        "tertiary": "#beffdc",
+                        "primary-fixed-dim": "#8fb3ff",
+                        "surface-container-highest": "#222631",
+                        "surface-container-high": "#1c1f29",
+                        "on-primary-fixed-variant": "#004292",
+                        "error-dim": "#c94947",
+                        "on-surface-variant": "#a7aab9",
+                        "surface-container-lowest": "#000000",
+                        "on-tertiary": "#006747",
+                        "on-secondary-fixed-variant": "#52695f",
+                        "secondary-fixed": "#dcf7e9",
+                        "surface-bright": "#272c39",
+                        "inverse-primary": "#005bc4",
+                        "primary": "#699cff",
+                        "surface-tint": "#699cff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "display": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass {
+            background: rgba(39, 44, 57, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(113, 117, 131, 0.15);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen selection:bg-primary/30">
+<!-- TopNavBar -->
+<nav class="bg-[#0c0e14]/80 backdrop-blur-lg docked full-width top-0 z-50 shadow-[0_32px_64px_-15px_rgba(67,136,253,0.06)] flex justify-between items-center w-full px-8 h-16 sticky">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-dim" style="font-variation-settings: 'FILL' 1;">filter_center_focus</span>
+<span class="text-xl font-medium tracking-tighter text-white">SkillLens</span>
+</div>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-[#a7aab9] hover:text-white transition-colors font-['Inter'] tracking-tight headline-sm" href="#">Dashboard</a>
+<a class="text-[#699cff] font-medium border-b border-[#699cff] pb-1 font-['Inter'] tracking-tight headline-sm" href="#">Upload JDs</a>
+<a class="text-[#a7aab9] hover:text-white transition-colors font-['Inter'] tracking-tight headline-sm" href="#">Analytics</a>
+<a class="text-[#a7aab9] hover:text-white transition-colors font-['Inter'] tracking-tight headline-sm" href="#">Talent Pool</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface-container-high border-none rounded-full py-1.5 pl-10 pr-4 text-sm w-64 focus:ring-1 focus:ring-primary-dim transition-all" placeholder="Search JDs..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="hover:bg-[#161922] rounded-lg transition-all duration-300 p-1.5 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<button class="hover:bg-[#161922] rounded-lg transition-all duration-300 p-1.5 cursor-pointer active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+</button>
+<div class="flex items-center gap-3 ml-2 border-l border-outline-variant/30 pl-4">
+<span class="text-sm font-medium hidden sm:inline">Rohit R</span>
+<img class="w-8 h-8 rounded-full bg-primary-container/20 border border-primary-dim/30" data-alt="Close up of a professional user avatar icon with a minimalist circular border" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAe8GD_IYMwxDHFfJbdYsWTta1hZAG6bdMKywNDVg8wsoCAqGCsLZXr7geapfOD360OnHA8yLhSKHfV8AR0Do2q_zfVeeMkqVDcn55tLFGYMgy5WjXFkNa1U1OdUki12RheFk4UVZ8CS-EXciZoXl0n0jq0UevY7t1CtIOIOK79il0lCSarpmvt7U_wAZc4uX_lML2VHgn5k4JsumMzmgLe0I6b6WdT56zQoq1C9VwwbIfFqC9whwm7OdgZfhf_AIPxpjBgkY-8HmK5"/>
+</div>
+</div>
+</div>
+</nav>
+<main class="max-w-7xl mx-auto px-8 py-10">
+<!-- Page Header -->
+<header class="mb-10">
+<h1 class="text-display-lg font-medium tracking-tight text-white mb-2">Upload Job Descriptions</h1>
+<p class="text-on-surface-variant max-w-2xl">Drop your DOCX files to extract and classify skills using Gemini AI</p>
+</header>
+<div class="grid grid-cols-12 gap-8">
+<!-- LEFT COLUMN (55%) -->
+<div class="col-span-12 lg:col-span-7 space-y-8">
+<!-- Upload Area -->
+<section class="surface-container rounded-xl p-8 border-2 border-dashed border-primary-dim/20 bg-gradient-to-b from-primary-dim/5 to-transparent hover:border-primary-dim/40 transition-all duration-500 flex flex-col items-center justify-center text-center group cursor-pointer">
+<div class="w-16 h-16 rounded-full bg-primary-dim/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary-dim text-4xl">cloud_upload</span>
+</div>
+<h3 class="text-headline-sm font-medium text-white mb-2">Drag &amp; drop DOCX files here</h3>
+<p class="text-on-surface-variant mb-6">or</p>
+<button class="bg-primary-container text-on-primary-container px-8 py-2.5 rounded-full font-medium transition-all hover:brightness-110 active:scale-95 shadow-lg shadow-primary-dim/10">
+                        browse files
+                    </button>
+<div class="mt-8 pt-6 border-t border-outline-variant/10 w-full flex justify-center gap-6">
+<span class="text-label-md tracking-widest uppercase text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-xs">description</span> .docx files only
+                        </span>
+<span class="text-label-md tracking-widest uppercase text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-xs">analytics</span> Max 50 files per batch
+                        </span>
+</div>
+</section>
+<!-- Upload Queue -->
+<section class="surface-container-low rounded-xl overflow-hidden">
+<div class="px-6 py-4 border-b border-outline-variant/10 flex justify-between items-center bg-surface-container-high/30">
+<h2 class="text-label-md tracking-widest uppercase text-on-surface-variant">Upload Queue</h2>
+<span class="text-xs bg-primary-dim/10 text-primary-dim px-2 py-0.5 rounded-full">5 Files Total</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="text-label-md tracking-widest uppercase text-on-surface-variant bg-surface-container-high/50">
+<tr>
+<th class="px-6 py-4 font-medium">File Name</th>
+<th class="px-6 py-4 font-medium">Folder</th>
+<th class="px-6 py-4 font-medium">Size</th>
+<th class="px-6 py-4 font-medium">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr class="hover:bg-surface-container-high/20 transition-colors group">
+<td class="px-6 py-5 text-sm font-medium text-white">AI_ML Lead.docx</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Engineering</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">42 KB</td>
+<td class="px-6 py-5">
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center gap-2 text-xs text-tertiary">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                                Extracted
+                                            </div>
+<div class="w-32 h-1 bg-tertiary/20 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-full"></div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/20 transition-colors group">
+<td class="px-6 py-5 text-sm font-medium text-white">WhatsApp_Messenger.docx</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Product</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">38 KB</td>
+<td class="px-6 py-5">
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center gap-2 text-xs text-tertiary">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                                Extracted
+                                            </div>
+<div class="w-32 h-1 bg-tertiary/20 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-full"></div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/20 transition-colors group">
+<td class="px-6 py-5 text-sm font-medium text-white">.NET_Developer.docx</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Backend</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">51 KB</td>
+<td class="px-6 py-5">
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between text-xs text-primary-dim">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px] animate-spin">sync</span>
+                                                    Step 3/6
+                                                </div>
+<span>45%</span>
+</div>
+<div class="w-32 h-1 bg-primary-dim/20 rounded-full overflow-hidden">
+<div class="bg-primary-dim h-full w-[45%]"></div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/20 transition-colors group">
+<td class="px-6 py-5 text-sm font-medium text-white">Security_Analyst.docx</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">IT</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">29 KB</td>
+<td class="px-6 py-5">
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center gap-2 text-xs text-on-surface-variant/60">
+<span class="material-symbols-outlined text-[14px]">pending</span>
+                                                Queued
+                                            </div>
+<div class="w-32 h-1 bg-outline-variant/10 rounded-full overflow-hidden">
+<div class="bg-outline-variant/30 h-full w-0"></div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/20 transition-colors group">
+<td class="px-6 py-5 text-sm font-medium text-white">Medidata_BA.docx</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">Pharma</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">64 KB</td>
+<td class="px-6 py-5">
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center gap-2 text-xs text-on-surface-variant/60">
+<span class="material-symbols-outlined text-[14px]">pending</span>
+                                                Queued
+                                            </div>
+<div class="w-32 h-1 bg-outline-variant/10 rounded-full overflow-hidden">
+<div class="bg-outline-variant/30 h-full w-0"></div>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- RIGHT COLUMN (45%) -->
+<div class="col-span-12 lg:col-span-5 space-y-8">
+<!-- Processing Configuration -->
+<section class="glass rounded-xl p-6">
+<h2 class="text-label-md tracking-widest uppercase text-on-surface-variant mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">settings_input_component</span>
+                        Processing Configuration
+                    </h2>
+<div class="space-y-6">
+<div>
+<label class="text-label-md text-on-surface-variant block mb-2 uppercase tracking-tighter">Model Selection</label>
+<div class="relative">
+<select class="w-full bg-surface-container-highest border-none rounded-lg text-sm text-white focus:ring-1 focus:ring-primary-dim/50 py-3 appearance-none">
+<option>Gemini 2.0 Flash Lite</option>
+<option>Gemini 1.5 Pro</option>
+<option>Custom LLM Endpoint</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="text-label-md text-on-surface-variant block mb-2 uppercase tracking-tighter">Max Retries</label>
+<input class="w-full bg-surface-container-highest border-none rounded-lg text-sm text-white focus:ring-1 focus:ring-primary-dim/50 py-3" type="number" value="3"/>
+</div>
+<div>
+<label class="text-label-md text-on-surface-variant block mb-2 uppercase tracking-tighter">Backoff slider</label>
+<div class="flex items-center gap-3 h-[46px]">
+<input class="accent-primary-dim w-full h-1 bg-surface-container-highest rounded-lg appearance-none cursor-pointer" type="range"/>
+<span class="text-xs text-white bg-surface-container px-2 py-1 rounded">2s</span>
+</div>
+</div>
+</div>
+<div class="space-y-4 pt-2 border-t border-outline-variant/10">
+<label class="flex items-center justify-between cursor-pointer group">
+<span class="text-sm text-on-surface">Log Raw Gemini Responses</span>
+<div class="relative w-10 h-5 bg-surface-container-highest rounded-full transition-colors group-hover:bg-surface-container-highest/80">
+<div class="absolute left-1 top-1 bg-primary-dim w-3 h-3 rounded-full translate-x-5 transition-transform"></div>
+</div>
+</label>
+<label class="flex items-center justify-between cursor-pointer group">
+<span class="text-sm text-on-surface">Save Raw JSON</span>
+<div class="relative w-10 h-5 bg-surface-container-highest rounded-full transition-colors group-hover:bg-surface-container-highest/80">
+<div class="absolute left-1 top-1 bg-outline-variant w-3 h-3 rounded-full transition-transform"></div>
+</div>
+</label>
+</div>
+</div>
+</section>
+<!-- Section Detection Preview -->
+<section class="surface-container rounded-xl p-6 border-l-4 border-secondary-dim/30">
+<h2 class="text-label-md tracking-widest uppercase text-on-surface-variant mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">segment</span>
+                        Section Detection Preview
+                    </h2>
+<div class="space-y-2">
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-high/50 hover:bg-surface-container-high transition-colors">
+<span class="text-xs font-mono text-secondary-dim">[KEY RESPONSIBILITIES]</span>
+<span class="text-xs text-on-surface-variant font-medium">12 items</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-high/50 hover:bg-surface-container-high transition-colors">
+<span class="text-xs font-mono text-secondary-dim">[TECHNICAL SKILLS]</span>
+<span class="text-xs text-on-surface-variant font-medium">8 items</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-high/50 hover:bg-surface-container-high transition-colors">
+<span class="text-xs font-mono text-secondary-dim">[QUALIFICATIONS]</span>
+<span class="text-xs text-on-surface-variant font-medium">4 items</span>
+</div>
+</div>
+</section>
+<!-- Batch Statistics -->
+<section class="surface-container-high rounded-xl p-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-6xl text-primary-dim">analytics</span>
+</div>
+<h2 class="text-label-md tracking-widest uppercase text-on-surface-variant mb-6">Batch Statistics</h2>
+<div class="grid grid-cols-2 gap-6">
+<div>
+<p class="text-label-md text-on-surface-variant uppercase tracking-tighter mb-1">Files Processed</p>
+<p class="text-2xl font-bold text-white">2 <span class="text-on-surface-variant font-normal text-sm">of 5</span></p>
+</div>
+<div>
+<p class="text-label-md text-on-surface-variant uppercase tracking-tighter mb-1">Skills Extracted</p>
+<p class="text-2xl font-bold text-white">41</p>
+</div>
+<div>
+<p class="text-label-md text-on-surface-variant uppercase tracking-tighter mb-1">Avg Time</p>
+<p class="text-2xl font-bold text-white">4.2s</p>
+</div>
+<div>
+<p class="text-label-md text-on-surface-variant uppercase tracking-tighter mb-1">Errors</p>
+<p class="text-2xl font-bold text-error">0</p>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- BOTTOM ACTION -->
+<div class="mt-12 flex justify-center sticky bottom-8">
+<button class="flex items-center gap-3 px-10 py-4 rounded-full bg-gradient-to-r from-primary to-primary-container text-white font-bold text-lg shadow-2xl shadow-primary/40 hover:scale-[1.02] active:scale-95 transition-all">
+<span class="material-symbols-outlined">bolt</span>
+                Start Extraction
+            </button>
+</div>
+</main>
+<!-- SideNavBar (Hidden on main pages as per instruction) -->
+<aside class="hidden h-screen w-64 fixed left-0 top-0 pt-20 bg-[#11131a] flex-col gap-4 p-4">
+<div class="flex items-center gap-3 mb-8">
+<img class="rounded-lg" data-alt="Neural engine abstract geometric icon with neon blue glowing nodes on a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYrpIvcDe_-mofrOB5i52FEBP2e9BclFyIN6BZ8BN6r_aXdKuOcRJQc0OC_CuvkAqIhaFf_A-hoYRBME7_nZLw81qXQeJh193x0XHs7PGLmQzfFPUKm9i2_3QtN3ICZVAviAG7lu3EURw-1M1LPxw3CUFZErtHBE5kIeEF6HaxB5LfqaAteenLrbe-9tk-o34GehY30mttsM3B-FK18zxsedJ_L0430wC0pKWhEyZ748R-zeDk4uMVWUeGjw_ku13oc4ScMAu4zrUv"/>
+<div>
+<h3 class="text-lg font-semibold text-white">Neural Engine</h3>
+<p class="text-[10px] text-on-surface-variant">V2.4 Active</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<div class="flex items-center gap-4 p-3 bg-[#161922] text-[#699cff] border-r-2 border-[#699cff]">
+<span class="material-symbols-outlined">psychology</span>
+<span class="font-['Inter'] label-md uppercase tracking-widest">Model Settings</span>
+</div>
+<div class="flex items-center gap-4 p-3 text-[#a7aab9] hover:bg-[#161922]/50 hover:text-white transition-all">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-['Inter'] label-md uppercase tracking-widest">Batch Stats</span>
+</div>
+<div class="flex items-center gap-4 p-3 text-[#a7aab9] hover:bg-[#161922]/50 hover:text-white transition-all">
+<span class="material-symbols-outlined">terminal</span>
+<span class="font-['Inter'] label-md uppercase tracking-widest">Extraction Logs</span>
+</div>
+<div class="flex items-center gap-4 p-3 text-[#a7aab9] hover:bg-[#161922]/50 hover:text-white transition-all">
+<span class="material-symbols-outlined">history</span>
+<span class="font-['Inter'] label-md uppercase tracking-widest">Queue History</span>
+</div>
+</nav>
+<button class="mt-auto bg-primary text-on-primary py-3 rounded-xl font-bold uppercase text-xs tracking-widest">
+            Process Batch
+        </button>
+</aside>
+</body></html>

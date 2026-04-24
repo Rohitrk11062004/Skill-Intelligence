@@ -1,0 +1,160 @@
+Copilot prompt (Option B: Week-based assessments with dynamic question count + edge cases)
+You are implementing week-level assessments (one test per week) instead of per-item assessments.
+
+Current system:
+
+Backend: FastAPI + SQLAlchemy async
+Roadmap endpoint returns week projections (weeks → skills/items)
+Existing item assessment endpoints exist: /api/v1/assessments/items/{item_id} and submit/history
+Learning plan persistence is one LearningPlanItem per skill; week segmentation is response-level projection
+Goal:
+
+For each week in a user’s roadmap, generate and persist a Week Assessment whose questions cover all concepts in that week, including edge cases.
+Question count should be dynamic based on week scope.
+Passing the week assessment (≥70%) unlocks progression and triggers next week assessment generation (staged generation).
+Backend changes
+1) New DB models + migrations
+Add new tables:
+
+week_assessments
+
+id (UUID / string like others)
+plan_id (FK → learning_plans.id)
+user_id (FK → users.id)
+week_number (int, 1-based)
+questions_json (Text, nullable) — JSON array of question objects
+question_count (int, non-null)
+status (string/enum) — pending | ready | completed | needs_review (or reuse existing conventions)
+created_at, updated_at
+week_assessment_attempts
+
+id
+week_assessment_id (FK)
+user_id
+score (float 0..1)
+answers_json (Text) — list of selected option indices
+passed (bool)
+attempted_at
+Constraints:
+
+Unique index: (plan_id, week_number) (or (user_id, plan_id, week_number) if multi-user sharing is possible).
+SQLite-compatible Alembic migrations (batch_alter_table where needed).
+2) Question schema (week-based)
+Each question object stored in questions_json:
+
+{
+  "question": "string",
+  "options": ["A","B","C","D"],
+  "correct_index": 0,
+  "explanation": "string",
+  "tags": ["subtopic:Prompt Engineering", "skill:Generative AI", "type:edge_case"]
+}
+3) Dynamic question count formula
+Compute per week:
+
+Gather week scope:
+
+list of items in that week (skill names)
+all subtopics/sub-subtopics in that week (from DB for each LearningPlanItem)
+week_hours estimate (sum of item estimated hours or use week projection hours)
+Compute:
+
+minQ = 8, maxQ = 20
+
+base = 8
+
+extra = ceil(total_subtopics / 3) + ceil(week_hours / 5)
+
+Q = clamp(minQ, maxQ, base + extra)
+
+Coverage requirements in prompt:
+
+At least 1 question per skill if possible
+At least 1 question per major subtopic cluster
+At least 20% “edge case/failure-mode” questions (round up, min 2)
+At least 30% scenario-based applied questions
+4) LLM generation service
+Create backend/app/services/week_assessment_service.py:
+
+async def generate_week_assessment_questions(*, week_number:int, skills:list[str], subtopics:list[str], question_count:int) -> list[dict]:
+Uses Gemini and returns strict JSON only; validate:
+list length == question_count
+4 options each
+correct_index 0–3
+explanation non-empty
+includes tags and required edge-case/scenario distribution (best-effort validate)
+5) Endpoints (new)
+Create backend/app/api/v1/endpoints/week_assessments.py (or extend assessments.py cleanly):
+
+GET /api/v1/assessments/weeks/{plan_id}/{week_number}
+
+Auth required
+Loads/creates week_assessment row
+If questions_json missing:
+generate questions (or return 202 pending if using background generation)
+persist in one commit
+Response must NOT include correct_index/explanation:
+{ plan_id, week_number, question_count, questions:[{index, question, options, tags}], attempts, last_score }
+POST /api/v1/assessments/weeks/{plan_id}/{week_number}/submit
+
+Body: { "answers": [0,2,1,...] } length must equal question_count
+Score = correct / question_count
+PASS_THRESHOLD = 0.7
+Persist attempt row
+If passed:
+mark week_assessment status completed
+mark all items in that week as completed (or keep item completion separate; choose rule and be consistent)
+trigger next week assessment generation in background (week_number+1), staged approach
+If failed:
+week_assessment status needs_review
+return breakdown including correct_index + explanation + user selection
+optionally trigger remediation-lite (e.g., regenerate subtopics/resources for weakest skills)
+GET /api/v1/assessments/weeks/{plan_id}/{week_number}/history
+
+Returns attempts list
+6) Staged generation (Week 1 first)
+When roadmap is generated or first opened:
+ensure Week 1 assessment exists and is generated (sync or background)
+After week N passed:
+generate week N+1 assessment questions and persist
+Add concurrency safety:
+
+If multiple requests try to generate same week, re-check questions_json before writing; optionally lock row (FOR UPDATE for Postgres).
+Frontend changes
+7) UI flow
+Roadmap page: for each week, show a “Take Week Assessment” button.
+Clicking opens new route:
+/week-assessment?planId=...&week=1 Create page frontend/src/pages/WeekAssessmentPage.jsx similar to TopicAssessmentPage.jsx but week-based.
+Frontend API helpers (frontend/src/services/api.js):
+
+getWeekAssessment(planId, weekNumber)
+submitWeekAssessment(planId, weekNumber, answers)
+getWeekAssessmentHistory(planId, weekNumber)
+Make question count fully dynamic:
+
+answers array length = questions.length
+validation uses questions.length
+8) Results report
+After submit, show per-question breakdown including:
+
+user answer index + text
+correct answer index + text
+explanation
+tags (so user sees which concept they missed)
+Tests / validation
+Backend tests:
+
+Create plan with 2 weeks and known subtopics
+Assert week 1 GET returns question_count between min/max and includes tags
+Submit with correct answers count meeting threshold → passed true, status completed, next week generation scheduled/called
+Submit with wrong length answers → 400
+Constraints
+Don’t leak answers in GET questions endpoint.
+Keep item-based endpoints for backward compatibility, but the product should use week-based assessment going forward.
+Keep SQLite dev working and Postgres ready.
+Deliverables:
+
+Alembic migrations
+New service + endpoints
+Frontend WeekAssessmentPage + wiring from Roadmap
+Tests and short run instructions

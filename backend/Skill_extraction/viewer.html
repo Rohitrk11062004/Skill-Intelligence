@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skill Intelligence Viewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #0b0f1a;
+      --bg-secondary: #111827;
+      --bg-card: #1a2036;
+      --bg-card-hover: #212b45;
+      --bg-chip: rgba(99, 102, 241, 0.12);
+      --border: #1e293b;
+      --border-light: #2d3a54;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #818cf8;
+      --accent-glow: rgba(129, 140, 248, 0.25);
+      --green: #34d399;
+      --green-bg: rgba(52, 211, 153, 0.1);
+      --amber: #fbbf24;
+      --amber-bg: rgba(251, 191, 36, 0.1);
+      --rose: #fb7185;
+      --rose-bg: rgba(251, 113, 133, 0.1);
+      --cyan: #22d3ee;
+      --cyan-bg: rgba(34, 211, 238, 0.1);
+      --purple: #a78bfa;
+      --purple-bg: rgba(167, 139, 250, 0.1);
+      --orange: #fb923c;
+      --orange-bg: rgba(251, 146, 60, 0.1);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── Scrollbar ─────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+
+    /* ── Header ────────────────────────────── */
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(11, 15, 26, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .header-left { display: flex; align-items: center; gap: 14px; }
+    .logo {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, #818cf8, #6366f1);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 16px; color: #fff;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .header h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+    .header h1 span { color: var(--accent); }
+
+    /* ── File Upload ───────────────────────── */
+    .upload-area {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .upload-btn {
+      padding: 8px 18px; border-radius: var(--radius-sm);
+      background: var(--bg-card); border: 1px solid var(--border-light);
+      color: var(--text-primary); font-size: 13px; font-weight: 500;
+      cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .upload-btn:hover { background: var(--bg-card-hover); border-color: var(--accent); }
+    .upload-btn svg { width: 16px; height: 16px; }
+    .file-name { font-size: 12px; color: var(--text-muted); }
+
+    /* ── Stats Bar ─────────────────────────── */
+    .stats-bar {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px; padding: 24px 32px;
+    }
+    .stat-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+      transition: all 0.25s; position: relative; overflow: hidden;
+    }
+    .stat-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .stat-card:hover { transform: translateY(-2px); border-color: var(--border-light); }
+    .stat-card:hover::before { opacity: 1; }
+    .stat-label { font-size: 12px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+    .stat-value { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
+    .stat-value.accent { color: var(--accent); }
+    .stat-value.green { color: var(--green); }
+    .stat-value.amber { color: var(--amber); }
+    .stat-value.cyan { color: var(--cyan); }
+
+    /* ── Controls ──────────────────────────── */
+    .controls {
+      padding: 0 32px 20px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+    }
+    .search-box {
+      flex: 1; min-width: 260px; position: relative;
+    }
+    .search-box input {
+      width: 100%; padding: 10px 14px 10px 40px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text-primary);
+      font-size: 14px; font-family: inherit; outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-box input:focus { border-color: var(--accent); }
+    .search-box input::placeholder { color: var(--text-muted); }
+    .search-box svg {
+      position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+      width: 18px; height: 18px; color: var(--text-muted);
+    }
+    .filter-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-chip {
+      padding: 7px 14px; border-radius: 20px; font-size: 12px;
+      font-weight: 500; border: 1px solid var(--border);
+      background: var(--bg-card); color: var(--text-secondary);
+      cursor: pointer; transition: all 0.2s; white-space: nowrap;
+    }
+    .filter-chip:hover { border-color: var(--accent); color: var(--text-primary); }
+    .filter-chip.active {
+      background: var(--accent); border-color: var(--accent);
+      color: #fff; box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    /* ── Main Content ──────────────────────── */
+    .main { padding: 0 32px 40px; }
+
+    /* ── Role Card ─────────────────────────── */
+    .role-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); margin-bottom: 20px;
+      overflow: hidden; transition: all 0.25s;
+    }
+    .role-card:hover { border-color: var(--border-light); box-shadow: var(--shadow); }
+    .role-header {
+      padding: 20px 24px; display: flex; align-items: center;
+      justify-content: space-between; cursor: pointer;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .role-header:hover { background: rgba(255,255,255, 0.02); }
+    .role-card.open .role-header { border-bottom-color: var(--border); }
+    .role-title-area { display: flex; align-items: center; gap: 14px; }
+    .role-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 700;
+    }
+    .role-name { font-size: 16px; font-weight: 600; }
+    .role-folder { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .role-meta { display: flex; align-items: center; gap: 16px; }
+    .role-skill-count {
+      padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+      background: var(--bg-chip); color: var(--accent);
+    }
+    .chevron {
+      width: 20px; height: 20px; color: var(--text-muted);
+      transition: transform 0.3s;
+    }
+    .role-card.open .chevron { transform: rotate(180deg); }
+
+    /* ── Role Body (skills table) ──────────── */
+    .role-body { display: none; padding: 0; }
+    .role-card.open .role-body { display: block; }
+
+    .category-section { border-bottom: 1px solid var(--border); }
+    .category-section:last-child { border-bottom: none; }
+    .category-header {
+      padding: 14px 24px; display: flex; align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255, 0.015);
+    }
+    .category-name {
+      font-size: 13px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.6px; display: flex; align-items: center; gap: 8px;
+    }
+    .category-dot {
+      width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+    }
+    .category-count { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+
+    .skills-grid {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      padding: 12px 24px 18px;
+    }
+    .skill-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 8px;
+      font-size: 13px; font-weight: 500;
+      border: 1px solid; transition: all 0.2s;
+      cursor: default; position: relative;
+    }
+    .skill-tag:hover { transform: translateY(-1px); }
+    .skill-tag .conf {
+      font-size: 10px; font-weight: 700; padding: 1px 5px;
+      border-radius: 4px; background: rgba(255,255,255,0.08);
+    }
+    .skill-tag .complexity-badge {
+      font-size: 9px; font-weight: 700; text-transform: uppercase;
+      padding: 1px 5px; border-radius: 3px; letter-spacing: 0.3px;
+    }
+
+    /* Category colors */
+    .cat-technical { background: rgba(99,102,241,0.08); border-color: rgba(99,102,241,0.2); color: #a5b4fc; }
+    .cat-domain { background: var(--cyan-bg); border-color: rgba(34,211,238,0.2); color: var(--cyan); }
+    .cat-team { background: var(--amber-bg); border-color: rgba(251,191,36,0.2); color: var(--amber); }
+    .cat-people { background: var(--purple-bg); border-color: rgba(167,139,250,0.2); color: var(--purple); }
+    .cat-communication { background: var(--green-bg); border-color: rgba(52,211,153,0.2); color: var(--green); }
+    .cat-behavioral { background: var(--orange-bg); border-color: rgba(251,146,60,0.2); color: var(--orange); }
+
+    .dot-technical { background: var(--accent); }
+    .dot-domain { background: var(--cyan); }
+    .dot-team { background: var(--amber); }
+    .dot-people { background: var(--purple); }
+    .dot-communication { background: var(--green); }
+    .dot-behavioral { background: var(--orange); }
+
+    /* ── Tooltip ────────────────────────────── */
+    .tooltip {
+      display: none; position: absolute; bottom: calc(100% + 8px); left: 50%;
+      transform: translateX(-50%); background: var(--bg-secondary);
+      border: 1px solid var(--border-light); border-radius: var(--radius-sm);
+      padding: 10px 14px; min-width: 260px; max-width: 360px;
+      font-size: 12px; color: var(--text-secondary); z-index: 50;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5); pointer-events: none;
+      line-height: 1.5;
+    }
+    .tooltip::after {
+      content: ''; position: absolute; top: 100%; left: 50%;
+      transform: translateX(-50%); border: 6px solid transparent;
+      border-top-color: var(--border-light);
+    }
+    .skill-tag:hover .tooltip { display: block; }
+    .tooltip strong { color: var(--text-primary); }
+    .tooltip .tt-row { margin-top: 4px; }
+
+    /* ── Empty State ───────────────────────── */
+    .empty-state {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; padding: 80px 32px; text-align: center;
+    }
+    .empty-icon {
+      width: 80px; height: 80px; border-radius: 20px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; font-size: 36px;
+    }
+    .empty-state h2 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+    .empty-state p { color: var(--text-muted); font-size: 14px; max-width: 400px; }
+
+    /* ── Animations ─────────────────────────── */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-in { animation: fadeInUp 0.35s ease forwards; }
+    .role-card { opacity: 0; animation: fadeInUp 0.4s ease forwards; }
+    .role-card:nth-child(1) { animation-delay: 0.05s; }
+    .role-card:nth-child(2) { animation-delay: 0.1s; }
+    .role-card:nth-child(3) { animation-delay: 0.15s; }
+    .role-card:nth-child(4) { animation-delay: 0.2s; }
+    .role-card:nth-child(5) { animation-delay: 0.25s; }
+
+    /* ── Responsive ─────────────────────────── */
+    @media (max-width: 768px) {
+      .header { padding: 14px 16px; }
+      .stats-bar, .controls, .main { padding-left: 16px; padding-right: 16px; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .role-header { padding: 16px; }
+      .skills-grid { padding: 10px 16px 14px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo">SI</div>
+      <h1><span>Skill</span> Intelligence Viewer</h1>
+    </div>
+    <div class="upload-area">
+      <label class="upload-btn" for="jsonUpload">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Load JSON
+      </label>
+      <input type="file" id="jsonUpload" accept=".json" hidden />
+      <span class="file-name" id="fileName">No file loaded</span>
+    </div>
+  </header>
+
+  <!-- Stats Bar -->
+  <section class="stats-bar" id="statsBar" style="display:none;"></section>
+
+  <!-- Controls -->
+  <section class="controls" id="controlsSection" style="display:none;">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Search roles, skills, categories..." />
+    </div>
+    <div class="filter-chips" id="filterChips"></div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="main" id="mainContent">
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon">📂</div>
+      <h2>Load Your Results</h2>
+      <p>Click "Load JSON" above to open your <code>extracted_skills_results.json</code> file and visualize the extracted skills.</p>
+    </div>
+  </main>
+
+  <script>
+    // ── State ───────────────────────────────────────────────────────────────
+    let allData = [];
+    let activeCategory = null;
+    let searchQuery = '';
+
+    const CATEGORY_MAP = {
+      'Technical Skills':          { css: 'technical',     dot: 'dot-technical',     color: '#818cf8' },
+      'Domain/Tools/Process':      { css: 'domain',        dot: 'dot-domain',        color: '#22d3ee' },
+      'Team Management':           { css: 'team',          dot: 'dot-team',          color: '#fbbf24' },
+      'People Management Skills':  { css: 'people',        dot: 'dot-people',        color: '#a78bfa' },
+      'Communication Skills':      { css: 'communication', dot: 'dot-communication', color: '#34d399' },
+      'Behavioral Skills':         { css: 'behavioral',    dot: 'dot-behavioral',    color: '#fb923c' },
+    };
+
+    // ── DOM refs ────────────────────────────────────────────────────────────
+    const fileInput   = document.getElementById('jsonUpload');
+    const fileNameEl  = document.getElementById('fileName');
+    const statsBar    = document.getElementById('statsBar');
+    const controlsSec = document.getElementById('controlsSection');
+    const mainContent = document.getElementById('mainContent');
+    const emptyState  = document.getElementById('emptyState');
+    const searchInput = document.getElementById('searchInput');
+    const filterChips = document.getElementById('filterChips');
+
+    // ── File upload ─────────────────────────────────────────────────────────
+    fileInput.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      fileNameEl.textContent = file.name;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        try {
+          allData = JSON.parse(ev.target.result);
+          render();
+        } catch (err) {
+          alert('Invalid JSON file: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    // ── Search ──────────────────────────────────────────────────────────────
+    searchInput.addEventListener('input', e => {
+      searchQuery = e.target.value.toLowerCase();
+      renderCards();
+    });
+
+    // ── Render everything ───────────────────────────────────────────────────
+    function render() {
+      emptyState.style.display = 'none';
+      statsBar.style.display = '';
+      controlsSec.style.display = '';
+      renderStats();
+      renderFilters();
+      renderCards();
+    }
+
+    // ── Stats ───────────────────────────────────────────────────────────────
+    function renderStats() {
+      const totalRoles = allData.length;
+      const totalSkills = allData.reduce((n, r) => n + (r.skills?.length || 0), 0);
+      const avgConf = totalSkills
+        ? (allData.reduce((s, r) => s + (r.skills || []).reduce((a, sk) => a + (sk.confidence || 0), 0), 0) / totalSkills).toFixed(2)
+        : '—';
+      const folders = [...new Set(allData.map(r => r.folder_category).filter(Boolean))].length;
+
+      statsBar.innerHTML = `
+        <div class="stat-card"><div class="stat-label">Total Roles</div><div class="stat-value accent">${totalRoles}</div></div>
+        <div class="stat-card"><div class="stat-label">Total Skills</div><div class="stat-value green">${totalSkills}</div></div>
+        <div class="stat-card"><div class="stat-label">Avg Confidence</div><div class="stat-value amber">${avgConf}</div></div>
+        <div class="stat-card"><div class="stat-label">Departments</div><div class="stat-value cyan">${folders}</div></div>
+      `;
+    }
+
+    // ── Filters ─────────────────────────────────────────────────────────────
+    function renderFilters() {
+      const cats = Object.keys(CATEGORY_MAP);
+      filterChips.innerHTML = `
+        <button class="filter-chip ${activeCategory === null ? 'active' : ''}" data-cat="">All</button>
+        ${cats.map(c => `<button class="filter-chip ${activeCategory === c ? 'active' : ''}" data-cat="${c}">${c}</button>`).join('')}
+      `;
+      filterChips.querySelectorAll('.filter-chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeCategory = btn.dataset.cat || null;
+          renderFilters();
+          renderCards();
+        });
+      });
+    }
+
+    // ── Cards ───────────────────────────────────────────────────────────────
+    function renderCards() {
+      // Remove old cards
+      mainContent.querySelectorAll('.role-card').forEach(c => c.remove());
+
+      const filtered = allData.filter(role => {
+        if (searchQuery) {
+          const haystack = JSON.stringify(role).toLowerCase();
+          if (!haystack.includes(searchQuery)) return false;
+        }
+        if (activeCategory) {
+          const hasSkillInCat = (role.skills || []).some(s => s.category === activeCategory);
+          if (!hasSkillInCat) return false;
+        }
+        return true;
+      });
+
+      if (!filtered.length) {
+        const msg = document.createElement('div');
+        msg.className = 'empty-state';
+        msg.innerHTML = '<div class="empty-icon">🔍</div><h2>No Results</h2><p>Try adjusting your search or filter.</p>';
+        mainContent.appendChild(msg);
+        return;
+      }
+
+      filtered.forEach((role, idx) => {
+        const card = document.createElement('div');
+        card.className = 'role-card';
+        card.style.animationDelay = `${idx * 0.06}s`;
+
+        const skills = (role.skills || []).filter(s => !activeCategory || s.category === activeCategory);
+        const grouped = groupByCategory(skills);
+        const iconColors = ['#818cf8','#22d3ee','#34d399','#fbbf24','#a78bfa','#fb923c'];
+        const iconBg = iconColors[idx % iconColors.length];
+        const initials = (role.role || 'N/A').split(/[\s_-]+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+
+        card.innerHTML = `
+          <div class="role-header" onclick="this.parentElement.classList.toggle('open')">
+            <div class="role-title-area">
+              <div class="role-icon" style="background:${iconBg}22; color:${iconBg};">${initials}</div>
+              <div>
+                <div class="role-name">${escHtml(role.role || 'Unknown Role')}</div>
+                <div class="role-folder">${escHtml(role.folder_category || role.file_path || '')}</div>
+              </div>
+            </div>
+            <div class="role-meta">
+              <span class="role-skill-count">${skills.length} skills</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="role-body">${renderGroupedSkills(grouped)}</div>
+        `;
+        mainContent.appendChild(card);
+      });
+    }
+
+    function groupByCategory(skills) {
+      const groups = {};
+      for (const s of skills) {
+        const cat = s.category || 'Other';
+        if (!groups[cat]) groups[cat] = [];
+        groups[cat].push(s);
+      }
+      return groups;
+    }
+
+    function renderGroupedSkills(grouped) {
+      const order = Object.keys(CATEGORY_MAP);
+      const sortedKeys = Object.keys(grouped).sort((a, b) => {
+        const ia = order.indexOf(a), ib = order.indexOf(b);
+        return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+      });
+      return sortedKeys.map(cat => {
+        const info = CATEGORY_MAP[cat] || { css: 'technical', dot: 'dot-technical', color: '#818cf8' };
+        const skills = grouped[cat];
+        return `
+          <div class="category-section">
+            <div class="category-header">
+              <div class="category-name"><span class="category-dot ${info.dot}"></span>${escHtml(cat)}</div>
+              <div class="category-count">${skills.length} skill${skills.length!==1?'s':''}</div>
+            </div>
+            <div class="skills-grid">
+              ${skills.map(s => renderSkillTag(s, info)).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderSkillTag(skill, info) {
+      const conf = skill.confidence != null ? (skill.confidence * 100).toFixed(0) + '%' : '';
+      const complexityHtml = skill.complexity
+        ? `<span class="complexity-badge" style="background:rgba(255,255,255,0.06);">${escHtml(skill.complexity)}</span>`
+        : '';
+      const contextLine = skill.context ? `<div class="tt-row"><strong>Context:</strong> ${escHtml(skill.context)}</div>` : '';
+      const yearsLine = skill.years_required != null ? `<div class="tt-row"><strong>Years:</strong> ${skill.years_required}+</div>` : '';
+      const complexLine = skill.complexity ? `<div class="tt-row"><strong>Level:</strong> ${escHtml(skill.complexity)}</div>` : '';
+      const confLine = conf ? `<div class="tt-row"><strong>Confidence:</strong> ${conf}</div>` : '';
+
+      return `
+        <span class="skill-tag cat-${info.css}">
+          ${escHtml(skill.name)}
+          ${conf ? `<span class="conf">${conf}</span>` : ''}
+          ${complexityHtml}
+          <div class="tooltip">
+            <strong>${escHtml(skill.name)}</strong>
+            ${confLine}${yearsLine}${complexLine}${contextLine}
+          </div>
+        </span>
+      `;
+    }
+
+    function escHtml(str) {
+      const d = document.createElement('div');
+      d.textContent = str || '';
+      return d.innerHTML;
+    }
+
+    // ── Auto-load from same directory (fetch) ───────────────────────────────
+    // This tries to load from same folder for convenience when served locally
+    fetch('extracted_skills_results.json')
+      .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+      .then(data => {
+        allData = data;
+        fileNameEl.textContent = 'extracted_skills_results.json (auto-loaded)';
+        render();
+      })
+      .catch(() => { /* File not found yet, user will upload manually */ });
+  </script>
+
+</body>
+</html>

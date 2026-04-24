@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkillLens | Learning Path</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#8bf8c4",
+                        "on-secondary": "#2e453b",
+                        "tertiary-fixed-dim": "#7ce9b7",
+                        "outline-variant": "#444854",
+                        "surface-tint": "#699cff",
+                        "on-tertiary-fixed": "#004931",
+                        "surface": "#0c0e14",
+                        "on-secondary-fixed-variant": "#52695f",
+                        "outline": "#717583",
+                        "surface-container-high": "#1c1f29",
+                        "tertiary": "#beffdc",
+                        "tertiary-container": "#8bf8c4",
+                        "on-primary": "#001e4a",
+                        "error-dim": "#c94947",
+                        "surface-container": "#161922",
+                        "secondary": "#b3ccbf",
+                        "inverse-on-surface": "#53555c",
+                        "surface-bright": "#272c39",
+                        "on-secondary-fixed": "#364d43",
+                        "tertiary-dim": "#7ce9b7",
+                        "on-tertiary-fixed-variant": "#006948",
+                        "on-surface-variant": "#a7aab9",
+                        "inverse-surface": "#faf8ff",
+                        "primary-container": "#4388fd",
+                        "inverse-primary": "#005bc4",
+                        "primary-fixed-dim": "#8fb3ff",
+                        "secondary-fixed-dim": "#cee9db",
+                        "on-error": "#490006",
+                        "surface-variant": "#222631",
+                        "surface-container-highest": "#222631",
+                        "surface-dim": "#0c0e14",
+                        "on-tertiary": "#006747",
+                        "primary-dim": "#699cff",
+                        "on-primary-container": "#000311",
+                        "primary": "#699cff",
+                        "error": "#ff716c",
+                        "on-primary-fixed": "#002659",
+                        "primary-fixed": "#a5c1ff",
+                        "on-background": "#e2e5f4",
+                        "secondary-container": "#132a21",
+                        "on-error-container": "#ff9993",
+                        "secondary-dim": "#a5bfb2",
+                        "on-tertiary-container": "#005e40",
+                        "on-surface": "#e2e5f4",
+                        "error-container": "#8a1a1e",
+                        "surface-container-low": "#11131a",
+                        "surface-container-lowest": "#000000",
+                        "on-primary-fixed-variant": "#004292",
+                        "on-secondary-container": "#90aa9d",
+                        "secondary-fixed": "#dcf7e9",
+                        "background": "#0c0e14"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "display": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel {
+            background: rgba(39, 44, 57, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .skill-orbit {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid rgba(105, 156, 255, 0.1);
+        }
+        .skill-orbit::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid #699cff;
+            clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 25%, 50% 50%);
+            filter: drop-shadow(0 0 4px #699cff);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary/30 selection:text-white">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#0c0e14]/80 backdrop-blur-xl shadow-[0_32px_64px_-15px_rgba(67,136,253,0.06)]">
+<div class="flex justify-between items-center w-full px-8 h-16 max-w-[1920px] mx-auto">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">filter_tilt_shift</span>
+<span class="text-xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#699cff] to-[#4388fd]">SkillLens</span>
+</div>
+<div class="hidden md:flex items-center gap-6 font-['Inter'] font-medium text-sm tracking-tight">
+<a class="text-[#a7aab9] hover:text-white transition-colors" href="#">Dashboard</a>
+<a class="text-[#a7aab9] hover:text-white transition-colors" href="#">Upload JDs</a>
+<a class="text-[#a7aab9] hover:text-white transition-colors" href="#">Skill Taxonomy</a>
+<a class="text-[#699cff] border-b-2 border-[#699cff] pb-1" href="#">Learning Paths</a>
+<a class="text-[#a7aab9] hover:text-white transition-colors" href="#">Assessments</a>
+<a class="text-[#a7aab9] hover:text-white transition-colors" href="#">Reports</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">search</span>
+<input class="bg-surface-container-highest border-none rounded-full py-2 pl-10 pr-4 text-sm w-64 focus:ring-1 focus:ring-primary/50 transition-all" placeholder="Search skills..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">notifications</button>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant/30">
+<div class="text-right">
+<p class="text-xs font-semibold text-on-surface">Rohit R</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">AI/ML Lead</p>
+</div>
+<img alt="User profile photo" class="w-8 h-8 rounded-full border border-primary/20" data-alt="Portrait of a professional man in a modern office environment, soft natural lighting, high-end corporate style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_7cYpyufbkMTMIm3bVWbiJ5NJEgxERckJRfDwc_nOi_qiKHpbwh1AhbKB2q6HV_D6qURKDLwvq4LESrQoot45w9wVYVop6KnuMUMv3F_0EPRu2U1nI4P06RDjLKPDa2qnZvRB3AED2YqCW9jH490SbXz1rlTQCM8TT83UQFm-SUPAwzfgmx7S7-XBPKZ0dUl9pmrV9aW1b3Y60AxXAvAGba38JiITly0WXldthjjRAqECNy1lR9FKemIqi3cIFkzuaGz3jdkx5skx"/>
+</div>
+</div>
+</div>
+</nav>
+<main class="pt-24 pb-12 px-8 max-w-[1600px] mx-auto">
+<!-- Header -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div class="space-y-1">
+<h1 class="text-display-lg text-4xl font-semibold tracking-tight">My Learning Path</h1>
+<p class="text-on-surface-variant text-lg max-w-2xl leading-relaxed">Personalized skill development roadmap based on your role and proficiency gaps.</p>
+</div>
+<div class="flex flex-col items-end gap-3">
+<div class="flex items-center gap-3 px-4 py-2 bg-surface-container-low rounded-xl border border-outline-variant/15">
+<span class="material-symbols-outlined text-primary text-lg">psychology</span>
+<span class="text-sm font-medium">AI/ML Lead with Gen AI Expertise</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">expand_more</span>
+</div>
+<div class="bg-primary/10 border border-primary/20 text-primary px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase">
+                    Current Band: B1 (6-7 years)
+                </div>
+</div>
+</header>
+<!-- Proficiency Overview Ladder -->
+<section class="mb-12 bg-surface-container-low p-8 rounded-xl relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<div class="flex gap-4 text-[10px] font-bold tracking-widest uppercase text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-outline"></span> 0-4 Scale</span>
+</div>
+</div>
+<h3 class="text-label-md text-on-surface-variant uppercase tracking-widest mb-8">Career Proficiency Ladder</h3>
+<div class="relative flex items-center justify-between">
+<!-- Connector Line -->
+<div class="absolute h-0.5 w-full bg-outline-variant/30 top-1/2 -translate-y-1/2 z-0"></div>
+<!-- Band Nodes -->
+<div class="flex flex-col items-center gap-3 relative z-10">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border border-outline-variant/30 flex items-center justify-center text-xs font-bold">T</div>
+<span class="text-[10px] text-on-surface-variant">Trainee</span>
+</div>
+<div class="flex flex-col items-center gap-3 relative z-10">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border border-outline-variant/30 flex items-center justify-center text-xs font-bold">A1</div>
+<span class="text-[10px] text-on-surface-variant">Associate</span>
+</div>
+<div class="flex flex-col items-center gap-3 relative z-10">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border border-outline-variant/30 flex items-center justify-center text-xs font-bold">A2</div>
+</div>
+<div class="flex flex-col items-center gap-3 relative z-10">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border border-outline-variant/30 flex items-center justify-center text-xs font-bold">A3</div>
+</div>
+<div class="flex flex-col items-center gap-3 relative z-10">
+<div class="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary-container flex flex-col items-center justify-center shadow-[0_0_24px_rgba(67,136,253,0.3)] border-2 border-white/20">
+<span class="text-sm font-black text-on-primary">B1</span>
+</div>
+<span class="text-[10px] font-bold text-primary uppercase tracking-tighter">YOU ARE HERE</span>
+</div>
+<div class="flex flex-col items-center gap-3 relative z-10">
+<div class="w-12 h-12 rounded-full bg-surface-container border-2 border-dashed border-primary/40 flex items-center justify-center text-sm font-bold text-primary-fixed-dim">B2</div>
+<span class="text-[10px] font-bold text-primary-fixed-dim uppercase tracking-tighter">TARGET</span>
+</div>
+<div class="flex flex-col items-center gap-3 relative z-10">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border border-outline-variant/30 flex items-center justify-center text-xs font-bold">B3</div>
+<span class="text-[10px] text-on-surface-variant">Principal</span>
+</div>
+</div>
+</section>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-10 gap-8">
+<!-- Left: Skill Roadmap (65%) -->
+<div class="lg:col-span-6 space-y-10">
+<!-- Critical Gaps -->
+<div class="space-y-6">
+<div class="flex items-center gap-3">
+<div class="w-2 h-8 bg-error-dim rounded-full"></div>
+<h2 class="text-xl font-medium">Critical Gaps</h2>
+<span class="px-2 py-0.5 bg-error-container/20 text-error-dim text-[10px] font-bold rounded">HIGH PRIORITY</span>
+</div>
+<div class="space-y-4">
+<!-- Skill Item -->
+<div class="glass-panel p-6 rounded-xl border-l-4 border-error-dim flex items-center justify-between group hover:bg-surface-bright/40 transition-all">
+<div class="flex gap-6">
+<div class="w-12 h-12 rounded-lg bg-error-container/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-error-dim">tune</span>
+</div>
+<div>
+<h4 class="font-semibold text-on-surface group-hover:text-primary transition-colors">Fine-Tuning</h4>
+<p class="text-xs text-on-surface-variant mt-1">Focus: LoRA, QLoRA, and PEFT techniques</p>
+<div class="flex items-center gap-4 mt-3">
+<div class="flex items-center gap-1.5 px-2 py-1 bg-surface rounded text-[10px] font-medium border border-outline-variant/20">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 180 hrs
+                                        </div>
+<div class="flex items-center gap-1.5 px-2 py-1 bg-surface rounded text-[10px] font-medium border border-outline-variant/20">
+<span class="material-symbols-outlined text-[14px]">signal_cellular_alt</span> Diff: 4/5
+                                        </div>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-xs font-bold text-on-surface-variant">L2</span>
+<span class="material-symbols-outlined text-xs text-outline">trending_flat</span>
+<span class="text-xs font-bold text-error-dim">L4</span>
+</div>
+<button class="px-4 py-2 bg-error-dim text-white text-xs font-bold rounded-lg hover:brightness-110 transition-all">START UNIT</button>
+</div>
+</div>
+<!-- Skill Item -->
+<div class="glass-panel p-6 rounded-xl border-l-4 border-error-dim flex items-center justify-between group hover:bg-surface-bright/40 transition-all">
+<div class="flex gap-6">
+<div class="w-12 h-12 rounded-lg bg-error-container/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-error-dim">visibility</span>
+</div>
+<div>
+<h4 class="font-semibold text-on-surface group-hover:text-primary transition-colors">Vision LLMs</h4>
+<p class="text-xs text-on-surface-variant mt-1">Multi-modal architecture and contrastive learning</p>
+<div class="flex items-center gap-4 mt-3">
+<div class="flex items-center gap-1.5 px-2 py-1 bg-surface rounded text-[10px] font-medium border border-outline-variant/20">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 240 hrs
+                                        </div>
+<span class="text-[10px] text-error-dim font-bold uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span> Prerequisites Pending
+                                        </span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-xs font-bold text-on-surface-variant">L1</span>
+<span class="material-symbols-outlined text-xs text-outline">trending_flat</span>
+<span class="text-xs font-bold text-error-dim">L3</span>
+</div>
+<span class="text-[10px] text-outline uppercase font-bold px-4">LOCKED</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Growth Areas -->
+<div class="space-y-6">
+<div class="flex items-center gap-3">
+<div class="w-2 h-8 bg-[#fbbf24] rounded-full"></div>
+<h2 class="text-xl font-medium">Growth Areas</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="p-5 rounded-xl bg-surface-container border border-outline-variant/10 hover:border-primary/30 transition-all">
+<div class="flex justify-between items-start mb-4">
+<h4 class="font-semibold">API Integration</h4>
+<span class="text-[10px] font-bold text-[#fbbf24]">L2 → L3</span>
+</div>
+<div class="flex items-center gap-4 text-xs text-on-surface-variant">
+<span>80 hrs</span>
+<span>•</span>
+<span>Intermediate</span>
+</div>
+</div>
+<div class="p-5 rounded-xl bg-surface-container border border-outline-variant/10 hover:border-primary/30 transition-all">
+<div class="flex justify-between items-start mb-4">
+<h4 class="font-semibold">Speech LLMs</h4>
+<span class="text-[10px] font-bold text-[#fbbf24]">L1 → L3</span>
+</div>
+<div class="flex items-center gap-4 text-xs text-on-surface-variant">
+<span>240 hrs</span>
+<span>•</span>
+<span>Advanced</span>
+</div>
+</div>
+</div>
+</div>
+<!-- On Track -->
+<div class="space-y-6">
+<div class="flex items-center gap-3">
+<div class="w-2 h-8 bg-tertiary-dim rounded-full"></div>
+<h2 class="text-xl font-medium">On Track</h2>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg border border-tertiary-dim/10">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-tertiary-dim" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-medium">Python Masterclass</span>
+</div>
+<span class="text-xs font-bold text-tertiary-dim px-2 py-1 bg-tertiary-dim/10 rounded">L4 COMPLETE</span>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg border border-outline-variant/10">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">data_object</span>
+<span class="font-medium">Generative AI Architectures</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-24 h-1 bg-outline-variant rounded-full overflow-hidden">
+<div class="w-[75%] h-full bg-primary"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant font-bold">L3 → L4</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg border border-outline-variant/10">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<span class="font-medium">Machine Learning Core</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-24 h-1 bg-outline-variant rounded-full overflow-hidden">
+<div class="w-[90%] h-full bg-primary"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant font-bold">L3 → L4</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Stats Cards (35%) -->
+<div class="lg:col-span-4 space-y-8">
+<!-- Learning Stats -->
+<div class="p-8 rounded-2xl bg-surface-container shadow-2xl relative overflow-hidden group">
+<div class="absolute -top-12 -right-12 w-48 h-48 bg-primary/5 rounded-full blur-3xl transition-all group-hover:bg-primary/10"></div>
+<h3 class="text-label-md text-on-surface-variant uppercase tracking-widest mb-8">Learning Proficiency</h3>
+<div class="flex items-center gap-10">
+<div class="skill-orbit flex items-center justify-center">
+<div class="text-center">
+<p class="text-3xl font-bold leading-none">25%</p>
+<p class="text-[10px] uppercase text-on-surface-variant tracking-widest mt-1">Mastered</p>
+</div>
+</div>
+<div class="flex-1 space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-xs text-on-surface-variant">Mastered</span>
+<span class="text-sm font-bold text-tertiary-dim">04</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-xs text-on-surface-variant">In Progress</span>
+<span class="text-sm font-bold text-primary">07</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-xs text-on-surface-variant">Not Started</span>
+<span class="text-sm font-bold text-outline">05</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Estimated Timeline -->
+<div class="p-8 rounded-2xl bg-surface-container relative overflow-hidden">
+<h3 class="text-label-md text-on-surface-variant uppercase tracking-widest mb-6">Completion Roadmap</h3>
+<div class="mb-8">
+<p class="text-4xl font-light text-primary">820 <span class="text-sm font-medium text-on-surface-variant">hrs remaining</span></p>
+</div>
+<div class="space-y-6">
+<div class="p-4 rounded-xl bg-surface-container-high border-l-4 border-outline-variant/30">
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs font-semibold">Standard Pace</span>
+<span class="text-xs font-bold text-on-surface">3.2 Years</span>
+</div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">5 Hours / Week</p>
+</div>
+<div class="p-4 rounded-xl bg-primary/5 border-l-4 border-primary">
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs font-semibold text-primary">Accelerated Pace</span>
+<span class="text-xs font-bold text-primary">1.6 Years</span>
+</div>
+<p class="text-[10px] text-primary/60 uppercase tracking-widest">10 Hours / Week</p>
+</div>
+</div>
+</div>
+<!-- Skill Category Breakdown -->
+<div class="p-8 rounded-2xl bg-surface-container">
+<h3 class="text-label-md text-on-surface-variant uppercase tracking-widest mb-8">Role Alignment</h3>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between text-xs font-medium mb-2">
+<span>Technical Architecture</span>
+<span class="text-primary">65%</span>
+</div>
+<div class="h-1.5 w-full bg-outline-variant/20 rounded-full">
+<div class="h-full w-[65%] bg-primary rounded-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-medium mb-2">
+<span>Domain Knowledge</span>
+<span class="text-primary">40%</span>
+</div>
+<div class="h-1.5 w-full bg-outline-variant/20 rounded-full">
+<div class="h-full w-[40%] bg-primary rounded-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-medium mb-2">
+<span>Team Management</span>
+<span class="text-tertiary-dim">80%</span>
+</div>
+<div class="h-1.5 w-full bg-outline-variant/20 rounded-full">
+<div class="h-full w-[80%] bg-tertiary-dim rounded-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-medium mb-2">
+<span>Gen AI Specialization</span>
+<span class="text-error-dim">22%</span>
+</div>
+<div class="h-1.5 w-full bg-outline-variant/20 rounded-full">
+<div class="h-full w-[22%] bg-error-dim rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<footer class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6 border-t border-outline-variant/10 pt-12">
+<button class="flex items-center gap-2 px-8 py-3 bg-surface-bright/50 border border-outline-variant/30 rounded-xl font-semibold text-sm hover:bg-surface-bright transition-all active:scale-95">
+<span class="material-symbols-outlined text-lg">download</span>
+                Download Learning Plan (PDF)
+            </button>
+<button class="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-primary to-primary-container rounded-xl font-bold text-sm text-on-primary shadow-xl hover:shadow-primary/20 transition-all active:scale-95">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">share</span>
+                Share with Manager
+            </button>
+</footer>
+</main>
+<!-- Bottom Spacing for Mobile -->
+<div class="h-12 md:hidden"></div>
+</body></html>

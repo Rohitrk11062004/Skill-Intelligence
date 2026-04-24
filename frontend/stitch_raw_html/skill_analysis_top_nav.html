@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Skill Analysis - Neural Lens</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#0c0e14",
+                      "on-secondary-container": "#90aa9d",
+                      "on-tertiary-fixed": "#004931",
+                      "error-container": "#8a1a1e",
+                      "primary-fixed-dim": "#8fb3ff",
+                      "background": "#0c0e14",
+                      "tertiary": "#beffdc",
+                      "outline": "#717583",
+                      "tertiary-fixed": "#8bf8c4",
+                      "error": "#ff716c",
+                      "tertiary-container": "#8bf8c4",
+                      "on-background": "#e2e5f4",
+                      "on-secondary-fixed": "#364d43",
+                      "on-primary-fixed": "#002659",
+                      "tertiary-fixed-dim": "#7ce9b7",
+                      "secondary-dim": "#a5bfb2",
+                      "surface-bright": "#272c39",
+                      "inverse-primary": "#005bc4",
+                      "secondary-fixed": "#dcf7e9",
+                      "surface-tint": "#699cff",
+                      "primary": "#699cff",
+                      "on-primary-fixed-variant": "#004292",
+                      "surface-container-high": "#1c1f29",
+                      "error-dim": "#c94947",
+                      "surface-container-highest": "#222631",
+                      "on-surface-variant": "#a7aab9",
+                      "on-tertiary": "#006747",
+                      "on-secondary-fixed-variant": "#52695f",
+                      "surface-container-lowest": "#000000",
+                      "tertiary-dim": "#7ce9b7",
+                      "secondary": "#b3ccbf",
+                      "on-tertiary-container": "#005e40",
+                      "primary-fixed": "#a5c1ff",
+                      "outline-variant": "#444854",
+                      "on-secondary": "#2e453b",
+                      "inverse-surface": "#faf8ff",
+                      "secondary-fixed-dim": "#cee9db",
+                      "surface-container": "#161922",
+                      "on-error-container": "#ff9993",
+                      "on-primary-container": "#000311",
+                      "surface": "#0c0e14",
+                      "on-error": "#490006",
+                      "inverse-on-surface": "#53555c",
+                      "on-surface": "#e2e5f4",
+                      "on-tertiary-fixed-variant": "#006948",
+                      "on-primary": "#001e4a",
+                      "primary-dim": "#699cff",
+                      "primary-container": "#4388fd",
+                      "secondary-container": "#132a21",
+                      "surface-variant": "#222631",
+                      "surface-container-low": "#11131a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": ["Inter", "sans-serif"],
+                      "display": ["Inter", "sans-serif"],
+                      "body": ["Inter", "sans-serif"],
+                      "label": ["Inter", "sans-serif"]
+              },
+              "fontSize": {
+                  "display-lg": ["3.5rem", { lineHeight: "4rem", letterSpacing: "-0.02em", fontWeight: "700" }],
+                  "headline-sm": ["1.5rem", { lineHeight: "2rem", fontWeight: "500" }],
+                  "body-md": ["0.875rem", { lineHeight: "1.25rem", fontWeight: "400" }],
+                  "label-md": ["0.75rem", { lineHeight: "1rem", letterSpacing: "0.05em", fontWeight: "500" }]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .text-glow {
+            text-shadow: 0 0 12px rgba(105, 156, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-surface-dim text-on-surface font-body overflow-hidden flex flex-col h-screen">
+<!-- TopNavBar (Replacing Sidebar and original TopAppBar) -->
+<header class="fixed top-0 left-0 w-full z-50 bg-[#0c0e14]/80 backdrop-blur-xl border-b border-outline-variant/10 flex items-center justify-between px-10 h-20">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-gradient-to-br from-primary to-primary-container rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(105,156,255,0.3)]">
+<span class="material-symbols-outlined text-on-primary text-xl" style="font-variation-settings: 'FILL' 1;">lens_blur</span>
+</div>
+<span class="text-lg font-bold tracking-tighter text-white uppercase font-headline">Neural Lens</span>
+</div>
+<nav class="hidden md:flex items-center gap-6 font-inter text-sm font-medium tracking-wide">
+<a class="text-slate-400 hover:text-primary transition-all duration-300" href="#">Dashboard</a>
+<a class="text-slate-400 hover:text-primary transition-all duration-300" href="#">JD Analytics</a>
+<a class="text-primary border-b-2 border-primary/50 pb-1" href="#">Skill Analysis</a>
+<a class="text-slate-400 hover:text-primary transition-all duration-300" href="#">Talent Map</a>
+<a class="text-slate-400 hover:text-primary transition-all duration-300" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-lg">search</span>
+<input class="bg-surface-container-highest/50 border border-outline-variant/20 rounded-full pl-10 pr-4 py-2 text-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary/50 w-64 transition-all" placeholder="Search profiles, skills..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors relative">
+<span class="material-symbols-outlined text-xl">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<button class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-xl">settings</span>
+</button>
+</div>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant/20 cursor-pointer group">
+<div class="text-right hidden md:block">
+<p class="text-sm font-medium text-on-surface group-hover:text-primary transition-colors leading-none">E. Mercer</p>
+<p class="text-[10px] text-on-surface-variant mt-1">Lead Analyst</p>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant/30 group-hover:border-primary/50 transition-colors bg-surface-container">
+<img alt="User profile photo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0gmkwY-btLRC4mLcy-RkLdryjuBpS9ndFXP6LntDroThYeH5G9lqS_O7GtGwhsn_07QWZ-VhkTrNQZwUo8lQApUgKcl55ZXDjdnbauxQA9o1IKA2iBesgmBpPzSMaqeA-TjI93gNwRHq28Mtqc_6qlYjdCRYptF4ffT3qRtRZ94TQGdrjsJilb9I7VM5KK_Ld2yzWRRGFCo4GZYM3PpdsrzKLNuO_SLlbrmg9rcQRMwFiXeO888h55XR-RUwbLIirZZtR3MBr0yn2"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Workspace (Updated for full width) -->
+<main class="flex-1 flex flex-col h-screen relative bg-surface-dim">
+<!-- Page Content Scrollable Area -->
+<div class="flex-1 overflow-y-auto pt-28 pb-12 px-10">
+<div class="max-w-[1400px] mx-auto">
+<!-- Page Header -->
+<div class="mb-8">
+<h2 class="font-headline text-headline-sm text-on-surface tracking-tight">Skill Analysis</h2>
+<p class="text-body-md text-on-surface-variant mt-1">Upload resume, explore skills, analyze gaps</p>
+</div>
+<!-- Tab Navigation -->
+<div class="flex items-center gap-8 border-b border-outline-variant/15 mb-8">
+<button class="pb-4 relative text-primary font-medium text-sm tracking-wide">
+                    Resume Upload
+                    <div class="absolute bottom-[-1px] left-0 w-full h-[2px] bg-primary rounded-t-full shadow-[0_-2px_10px_rgba(105,156,255,0.5)]"></div>
+</button>
+<button class="pb-4 text-on-surface-variant hover:text-on-surface transition-colors text-sm font-medium tracking-wide">
+                    My Skills
+                </button>
+<button class="pb-4 text-on-surface-variant hover:text-on-surface transition-colors text-sm font-medium tracking-wide flex items-center gap-2">
+                    Gap Analysis
+                    <span class="px-1.5 py-0.5 rounded-full bg-surface-container-highest text-[0.65rem] text-primary-dim">Beta</span>
+</button>
+</div>
+<!-- Tab 1 Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+<!-- Left Column -->
+<div class="lg:col-span-3 flex flex-col gap-6">
+<!-- Upload Card -->
+<div class="bg-surface-container rounded-xl p-8 relative overflow-hidden group border border-outline-variant/10">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-primary/5 blur-[80px] pointer-events-none"></div>
+<div class="relative z-10 flex flex-col items-center justify-center text-center">
+<div class="w-full border-2 border-dashed border-outline-variant/30 hover:border-primary/50 hover:bg-surface-container-highest/30 transition-all duration-300 rounded-xl p-12 flex flex-col items-center justify-center cursor-pointer bg-surface-container-highest/10">
+<div class="w-16 h-16 rounded-full bg-surface-bright/40 backdrop-blur-md flex items-center justify-center mb-4 border border-outline-variant/20 group-hover:scale-110 transition-transform duration-300 group-hover:shadow-[0_0_20px_rgba(105,156,255,0.2)]">
+<span class="material-symbols-outlined text-3xl text-primary-dim">cloud_upload</span>
+</div>
+<h3 class="text-on-surface font-medium mb-1">Drop your resume here or click to browse</h3>
+<p class="text-on-surface-variant text-sm">PDF, DOCX — Max 10MB</p>
+</div>
+<button class="mt-6 w-full py-4 rounded-xl bg-gradient-to-r from-primary to-primary-container text-on-primary font-medium text-base shadow-[0_4px_20px_rgba(67,136,253,0.3)] hover:shadow-[0_6px_25px_rgba(67,136,253,0.4)] transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-xl">auto_awesome</span>
+                                Upload &amp; Analyze
+                            </button>
+</div>
+</div>
+<!-- Processing Pipeline Section -->
+<div class="bg-surface-container rounded-xl p-6 border border-outline-variant/10">
+<h4 class="font-label text-label-md text-on-surface-variant mb-6 uppercase tracking-[0.05em]">Analysis Pipeline Status</h4>
+<div class="flex items-center justify-between relative px-2">
+<div class="absolute top-4 left-6 right-6 h-0.5 bg-surface-container-highest z-0"></div>
+<div class="absolute top-4 left-6 w-[40%] h-0.5 bg-gradient-to-r from-primary to-primary/20 z-0 shadow-[0_0_10px_rgba(105,156,255,0.5)]"></div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-dim border border-primary flex items-center justify-center shadow-[0_0_15px_rgba(105,156,255,0.3)]">
+<span class="material-symbols-outlined text-primary text-sm font-bold">check</span>
+</div>
+<span class="text-xs font-medium text-primary">Parse</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-dim border border-primary relative flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border border-primary/50 shadow-[0_0_10px_rgba(105,156,255,0.6)]"></div>
+<span class="material-symbols-outlined text-primary text-sm">document_scanner</span>
+</div>
+<span class="text-xs font-medium text-on-surface">Extract</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline-variant/30 flex items-center justify-center">
+<span class="text-on-surface-variant text-xs font-medium">3</span>
+</div>
+<span class="text-xs font-medium text-on-surface-variant">Normalize</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline-variant/30 flex items-center justify-center">
+<span class="text-on-surface-variant text-xs font-medium">4</span>
+</div>
+<span class="text-xs font-medium text-on-surface-variant">Profile</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column -->
+<div class="lg:col-span-2">
+<div class="bg-surface-container rounded-xl p-6 h-full border border-outline-variant/10 flex flex-col">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline text-base font-medium text-on-surface">Upload History</h3>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+</button>
+</div>
+<div class="space-y-1 flex-1">
+<div class="p-4 rounded-lg bg-surface-container-low hover:bg-surface-container-highest/40 transition-colors border border-transparent hover:border-outline-variant/10 group flex items-start gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-bright/30 flex items-center justify-center text-primary-dim">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-1">
+<h4 class="text-sm font-medium text-on-surface group-hover:text-primary transition-colors">resume_v2.pdf</h4>
+<span class="px-2 py-0.5 rounded bg-tertiary-dim/10 text-tertiary text-[0.65rem] font-medium border border-tertiary-dim/20">Processed</span>
+</div>
+<div class="flex items-center justify-between text-xs text-on-surface-variant">
+<span>Oct 24, 2023 • 10:42 AM</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">psychology</span> 24 skills</span>
+</div>
+</div>
+</div>
+<div class="p-4 rounded-lg bg-surface-container-low hover:bg-surface-container-highest/40 transition-colors border border-transparent hover:border-outline-variant/10 group flex items-start gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-bright/30 flex items-center justify-center text-primary-dim">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-1">
+<h4 class="text-sm font-medium text-on-surface group-hover:text-primary transition-colors">cv_final_tech.docx</h4>
+<span class="px-2 py-0.5 rounded bg-tertiary-dim/10 text-tertiary text-[0.65rem] font-medium border border-tertiary-dim/20">Processed</span>
+</div>
+<div class="flex items-center justify-between text-xs text-on-surface-variant">
+<span>Sep 15, 2023 • 02:15 PM</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">psychology</span> 18 skills</span>
+</div>
+</div>
+</div>
+<div class="p-4 rounded-lg bg-surface-container-low hover:bg-surface-container-highest/40 transition-colors border border-transparent hover:border-outline-variant/10 group flex items-start gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-bright/30 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-1">
+<h4 class="text-sm font-medium text-on-surface group-hover:text-primary transition-colors">old_resume_2021.pdf</h4>
+<span class="px-2 py-0.5 rounded bg-surface-bright text-on-surface-variant text-[0.65rem] font-medium border border-outline-variant/20">Archived</span>
+</div>
+<div class="flex items-center justify-between text-xs text-on-surface-variant">
+<span>Jan 05, 2022 • 09:00 AM</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">psychology</span> 12 skills</span>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full mt-4 py-2 text-sm text-on-surface-variant hover:text-on-surface transition-colors">
+                            View Full History
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
