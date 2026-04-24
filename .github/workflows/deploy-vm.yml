@@ -38,22 +38,16 @@ jobs:
           npm run build
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: ci
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Deploy over SSH
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.VM_HOST }}
-          username: ${{ secrets.VM_USER }}
-          key: ${{ secrets.VM_SSH_PRIVATE_KEY }}
-          script_stop: true
-          script: |
-            set -e
-            cd ${{ secrets.VM_DEPLOY_PATH }}
-            git pull --ff-only origin main
-            export COMPOSE_PROJECT_NAME=skill-intelligence
-            docker compose -f docker-compose.prod.yml up -d --build
-            docker compose -f docker-compose.prod.yml ps
-            docker compose -f docker-compose.prod.yml exec -T api sh -c "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=5); print('ok')\""
+      - name: Deploy on self-hosted runner
+        run: |
+          set -e
+          cd "${{ secrets.VM_DEPLOY_PATH }}"
+          git pull --ff-only origin main
+          export COMPOSE_PROJECT_NAME=skill-intelligence
+          docker compose -f docker-compose.prod.yml up -d --build
+          docker compose -f docker-compose.prod.yml ps
+          docker compose -f docker-compose.prod.yml exec -T api sh -c "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=5); print('ok')\""
