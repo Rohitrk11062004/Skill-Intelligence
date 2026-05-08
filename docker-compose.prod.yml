@@ -35,7 +35,8 @@ services:
     environment:
       APP_ENV: production
       DEBUG: "false"
-      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-skilluser}:${POSTGRES_PASSWORD:-skillpass}@db:5432/${POSTGRES_DB:-skilldb}
+      # Prefer externally provided DATABASE_URL (e.g., Neon). Fallback to local db container.
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://${POSTGRES_USER:-skilluser}:${POSTGRES_PASSWORD:-skillpass}@db:5432/${POSTGRES_DB:-skilldb}}
       REDIS_URL: redis://redis:6379/0
     depends_on:
       db:

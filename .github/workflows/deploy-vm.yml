@@ -41,6 +41,10 @@ jobs:
     runs-on: self-hosted
     needs: ci
     if: github.ref == 'refs/heads/main'
+    env:
+      # Store your Neon (or other prod DB) URL in GitHub Secrets as DATABASE_URL.
+      # Example: postgresql+asyncpg://user:pass@ep-xxxx.neon.tech/db?sslmode=require
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
     steps:
       - name: Deploy on self-hosted runner
         run: |
