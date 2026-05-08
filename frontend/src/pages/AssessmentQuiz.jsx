@@ -235,7 +235,7 @@ export default function AssessmentQuizTopNav() {
     <>
       <AppHeader />
       {/* MAIN */}
-      <main className="flex flex-col min-h-screen relative">
+      <main className="flex flex-col h-screen overflow-hidden relative">
       {isStartOverlayOpen && !loading && !error && (
         <div
           className="fixed inset-0 z-[100] bg-[#0c0e14]/85 backdrop-blur-sm flex items-center justify-center px-6"
@@ -288,7 +288,7 @@ export default function AssessmentQuizTopNav() {
       </div>
       </div>
       {/* Assessment Canvas */}
-      <div className="flex-1 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto w-full flex flex-col xl:flex-row gap-8 h-[calc(100vh-7rem)] overflow-hidden pb-8">
+      <div className="flex-1 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto w-full flex flex-col xl:flex-row gap-8 overflow-hidden pb-8">
       {/* Core Assessment Area (only this pane scrolls) */}
       <div className="flex-1 space-y-6 overflow-y-auto pr-2">
       {proctorEnabled && (

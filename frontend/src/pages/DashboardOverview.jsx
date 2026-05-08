@@ -61,18 +61,6 @@ export default function DashboardOverview() {
 
       {/* MAIN */}
       <main className="pt-28 pb-12 px-10 max-w-[1600px] mx-auto min-h-screen text-white">
-        
-        {/* Empty State if No Data */}
-        {data.detected_skills_count === 0 && data.skill_gaps_count === 0 && (
-          <div className="mb-10 p-8 glass-panel border border-primary/20 rounded-xl flex flex-col items-center justify-center text-center">
-            <span className="material-symbols-outlined text-6xl text-primary mb-4">upload_file</span>
-            <h2 className="text-2xl font-bold mb-2">Welcome to your Dashboard</h2>
-            <p className="text-on-surface-variant mb-6">Looks like you haven't uploaded a resume yet. Let's get started to analyze your skills and generate a learning roadmap.</p>
-            <a href="/resumes" className="px-6 py-2 bg-primary text-on-primary font-bold rounded-lg hover:bg-primary/90 transition-colors">
-              Upload Resume
-            </a>
-          </div>
-        )}
 
         {/* Hero Metrics */}
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">

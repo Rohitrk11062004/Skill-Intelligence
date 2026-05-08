@@ -1348,3 +1348,25 @@ asyncio.exceptions.CancelledError: Cancelled via cancel scope 1f0b60bbfd0 by <Ta
 2026-05-08 11:16:53,123 | INFO | app.services.normalization.skill_normalizer | Initializing skill normalizer...
 2026-05-08 11:16:56,003 | INFO | app.services.normalization.skill_normalizer | Alias index loaded: 393 entries
 2026-05-08 11:16:56,366 | INFO | app.main | {"event": "skill_normalizer_ready", "timestamp": "2026-05-08T05:46:56.366077Z", "level": "info"}
+2026-05-08 11:25:10,056 | INFO | app.main | {"event": "shutdown_complete", "timestamp": "2026-05-08T05:55:10.054159Z", "level": "info"}
+2026-05-08 11:27:09,757 | INFO | app.main | {"env": "development", "version": "0.1.0", "db_kind": "postgres", "event": "starting_up", "timestamp": "2026-05-08T05:57:09.757777Z", "level": "info"}
+2026-05-08 11:27:09,761 | INFO | app.main | {"db_kind": "postgres", "schema_strategy": "alembic", "event": "database_ready", "timestamp": "2026-05-08T05:57:09.760187Z", "level": "info"}
+2026-05-08 11:27:24,484 | INFO | app.services.normalization.skill_normalizer | Initializing skill normalizer...
+2026-05-08 11:27:28,468 | INFO | app.services.normalization.skill_normalizer | Alias index loaded: 393 entries
+2026-05-08 11:27:28,901 | INFO | app.main | {"event": "skill_normalizer_ready", "timestamp": "2026-05-08T05:57:28.901079Z", "level": "info"}
+2026-05-08 11:33:48,599 | INFO | app.main | {"method": "POST", "path": "/api/v1/auth/login", "status_code": 401, "elapsed_ms": 7013, "event": "request_complete", "timestamp": "2026-05-08T06:03:48.597845Z", "level": "info"}
+2026-05-08 11:33:58,113 | INFO | app.main | {"method": "POST", "path": "/api/v1/auth/login", "status_code": 401, "elapsed_ms": 2496, "event": "request_complete", "timestamp": "2026-05-08T06:03:58.113523Z", "level": "info"}
+2026-05-08 11:34:22,785 | INFO | app.main | {"method": "POST", "path": "/api/v1/auth/login", "status_code": 401, "elapsed_ms": 2291, "event": "request_complete", "timestamp": "2026-05-08T06:04:22.785551Z", "level": "info"}
+2026-05-08 11:34:33,420 | INFO | app.main | {"method": "POST", "path": "/api/v1/auth/login", "status_code": 401, "elapsed_ms": 2181, "event": "request_complete", "timestamp": "2026-05-08T06:04:33.420757Z", "level": "info"}
+2026-05-08 11:36:32,216 | INFO | app.main | {"method": "POST", "path": "/api/v1/auth/login", "status_code": 401, "elapsed_ms": 2916, "event": "request_complete", "timestamp": "2026-05-08T06:06:32.216950Z", "level": "info"}
+2026-05-08 11:37:01,881 | INFO | app.main | {"method": "POST", "path": "/api/v1/auth/register", "status_code": 201, "elapsed_ms": 6057, "event": "request_complete", "timestamp": "2026-05-08T06:07:01.881561Z", "level": "info"}
+2026-05-08 11:37:04,645 | INFO | app.main | {"method": "POST", "path": "/api/v1/auth/login", "status_code": 200, "elapsed_ms": 2754, "event": "request_complete", "timestamp": "2026-05-08T06:07:04.645198Z", "level": "info"}
+2026-05-08 11:37:06,946 | INFO | app.main | {"method": "GET", "path": "/api/v1/auth/me", "status_code": 200, "elapsed_ms": 2291, "event": "request_complete", "timestamp": "2026-05-08T06:07:06.946231Z", "level": "info"}
+2026-05-08 11:37:10,009 | INFO | app.main | {"method": "GET", "path": "/api/v1/users/me/dashboard", "status_code": 200, "elapsed_ms": 3023, "event": "request_complete", "timestamp": "2026-05-08T06:07:10.009407Z", "level": "info"}
+2026-05-08 11:37:12,817 | INFO | app.main | {"method": "GET", "path": "/api/v1/users/me/dashboard", "status_code": 200, "elapsed_ms": 2799, "event": "request_complete", "timestamp": "2026-05-08T06:07:12.817154Z", "level": "info"}
+2026-05-08 11:37:45,850 | INFO | app.main | {"method": "GET", "path": "/api/v1/auth/me", "status_code": 200, "elapsed_ms": 2052, "event": "request_complete", "timestamp": "2026-05-08T06:07:45.850793Z", "level": "info"}
+2026-05-08 11:37:48,336 | INFO | app.main | {"method": "GET", "path": "/api/v1/users/me/dashboard", "status_code": 200, "elapsed_ms": 2471, "event": "request_complete", "timestamp": "2026-05-08T06:07:48.336758Z", "level": "info"}
+2026-05-08 11:37:51,586 | INFO | app.main | {"method": "GET", "path": "/api/v1/users/me/dashboard", "status_code": 200, "elapsed_ms": 3244, "event": "request_complete", "timestamp": "2026-05-08T06:07:51.586271Z", "level": "info"}
+2026-05-08 11:37:57,103 | INFO | app.main | {"method": "GET", "path": "/api/v1/auth/me", "status_code": 200, "elapsed_ms": 6618, "event": "request_complete", "timestamp": "2026-05-08T06:07:57.103596Z", "level": "info"}
+2026-05-08 11:38:00,144 | INFO | app.main | {"method": "GET", "path": "/api/v1/users/me/dashboard", "status_code": 200, "elapsed_ms": 3006, "event": "request_complete", "timestamp": "2026-05-08T06:08:00.144209Z", "level": "info"}
+2026-05-08 11:38:03,970 | INFO | app.main | {"method": "GET", "path": "/api/v1/users/me/dashboard", "status_code": 200, "elapsed_ms": 3817, "event": "request_complete", "timestamp": "2026-05-08T06:08:03.970744Z", "level": "info"}
