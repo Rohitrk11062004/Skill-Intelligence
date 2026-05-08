@@ -1341,3 +1341,10 @@ asyncio.exceptions.CancelledError: Cancelled via cancel scope 1f0b60bbfd0 by <Ta
 2026-04-23 12:40:35,964 | INFO | app.main | {"method": "GET", "path": "/api/v1/users/me/learning-roadmap", "status_code": 200, "elapsed_ms": 49010, "event": "request_complete", "timestamp": "2026-04-23T07:10:35.963482Z", "level": "info"}
 2026-04-23 12:41:00,455 | INFO | app.main | {"method": "GET", "path": "/api/v1/assessments/weeks/8d07667a-4817-490e-8def-a61276cc0de3/1", "status_code": 200, "elapsed_ms": 24472, "event": "request_complete", "timestamp": "2026-04-23T07:11:00.455182Z", "level": "info"}
 2026-04-23 12:52:29,674 | INFO | app.main | {"event": "shutdown_complete", "timestamp": "2026-04-23T07:22:29.674964Z", "level": "info"}
+2026-05-08 11:16:01,858 | INFO | app.main | {"env": "development", "version": "0.1.0", "db_kind": "postgres", "event": "starting_up", "timestamp": "2026-05-08T05:46:01.858361Z", "level": "info"}
+2026-05-08 11:16:01,860 | INFO | app.main | {"db_kind": "postgres", "schema_strategy": "alembic", "event": "database_ready", "timestamp": "2026-05-08T05:46:01.860527Z", "level": "info"}
+2026-05-08 11:16:39,714 | INFO | app.main | {"env": "development", "version": "0.1.0", "db_kind": "postgres", "event": "starting_up", "timestamp": "2026-05-08T05:46:39.714225Z", "level": "info"}
+2026-05-08 11:16:39,715 | INFO | app.main | {"db_kind": "postgres", "schema_strategy": "alembic", "event": "database_ready", "timestamp": "2026-05-08T05:46:39.715229Z", "level": "info"}
+2026-05-08 11:16:53,123 | INFO | app.services.normalization.skill_normalizer | Initializing skill normalizer...
+2026-05-08 11:16:56,003 | INFO | app.services.normalization.skill_normalizer | Alias index loaded: 393 entries
+2026-05-08 11:16:56,366 | INFO | app.main | {"event": "skill_normalizer_ready", "timestamp": "2026-05-08T05:46:56.366077Z", "level": "info"}

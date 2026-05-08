@@ -49,13 +49,13 @@ export default function Registration() {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex h-screen overflow-hidden">
       {/* HEADER */}
       
       {/* MAIN */}
       
       {/* Left Side: Neural Background & Branding (55%) */}
-      <div className="hidden lg:flex lg:w-[55%] relative overflow-hidden bg-surface-dim items-center justify-center">
+      <div className="hidden lg:flex lg:w-[55%] h-screen sticky top-0 relative overflow-hidden bg-surface-dim items-center justify-center">
       {/* Abstract Neural Constellation Background Simulation */}
       <div className="absolute inset-0 z-0">
       {/* Simulated nodes and glows using gradients */}
@@ -75,7 +75,7 @@ export default function Registration() {
       </div>
       </div>
       {/* Right Side: Registration Form (45%) */}
-      <div className="w-full lg:w-[45%] flex items-center justify-center p-8 sm:p-12 lg:p-16 bg-surface-container-lowest relative z-10">
+      <div className="w-full lg:w-[45%] h-screen overflow-y-auto flex items-start justify-center p-8 sm:p-12 lg:p-16 bg-surface-container-lowest relative z-10">
       {/* Form Card */}
       <div className="w-full max-w-md bg-surface-container rounded-xl p-8 ghost-border shadow-[0_32px_64px_-16px_rgba(67,136,253,0.06)]">
       <div className="mb-10 text-center">

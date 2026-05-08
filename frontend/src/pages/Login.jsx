@@ -26,41 +26,33 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex h-screen overflow-hidden">
       {/* HEADER */}
       
       {/* MAIN */}
       
-      {/* Left Side: Abstract Graphic */}
-      <div className="hidden lg:flex lg:w-[55%] relative overflow-hidden bg-surface-container-low flex-col justify-center items-start p-16 xl:p-24">
-      {/* Background Pattern / Image Placeholder */}
-      <div className="absolute inset-0 z-0 bg-cover bg-center opacity-40 mix-blend-screen" data-alt="Abstract deep space constellation with glowing electric blue and teal interconnected nodes, high-tech neural network visualization, dark background" style={{backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBkyFRKmqa_qNz9q2MqXz0jlOPJqB2yXFhW6lK5Wk-ga5cXDnghC_XeBUUrdWJrzTf2D6YiFizK_Te4M-p9hzcT9akVU_Y3XDaVu0ZveOBA9cmCzyD-z1WPNbgeLWXkeKZAlDcz022sChbt4Ajhjt5KDPiJRuZF-4o14jSVd9lFEHNiMHNSKaag1FippvH9Qnm9ApYbSM7ns-Md1M7DiZ4Xe6HhF93CVkhKB9Tx0XDYEUI_nOqDKtj_1LT1yvYXceK3blaXgYott_Qn")'}}>
+      {/* Left Side: Neural Background & Branding (55%) */}
+      <div className="hidden lg:flex lg:w-[55%] h-screen sticky top-0 relative overflow-hidden bg-surface-dim items-center justify-center">
+      {/* Abstract Neural Constellation Background Simulation */}
+      <div className="absolute inset-0 z-0">
+      {/* Simulated nodes and glows using gradients */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[100px] mix-blend-screen"></div>
+      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-tertiary/20 rounded-full blur-[80px] mix-blend-screen"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,rgba(67,136,253,0.1)_0%,rgba(12,14,20,1)_70%)]"></div>
+      <img alt="Abstract neural network" className="w-full h-full object-cover opacity-10 mix-blend-luminosity" data-alt="abstract dark background with glowing interconnected teal and blue nodes resembling a neural network in deep space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCq4Axa5AXOXNYb5kka2ACSLI_iY_cQpxBsxkadngo5yg2RskRvgoZc493xp61ONMmz3fvEkq0Ng0_CmHm9h2tT1fr1BgkaMSc1UnzYvZOtQuVPtdKmNPgcIpXR_qDFZBownUBAyOljR03au7GcTYTfXenbFNcDUBYWuO_oyAdkZbWT7W2Ak60E7bBpuaC-Z46Kp1jvcbLYc_V4hZDWZ28HeWYEMgzXsYdHkJFnsfVv6WpZGK7xIp-YabYul87ge0Pxxa0ffy9xKr_Z"/>
       </div>
-      {/* Gradients for depth */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-br from-surface-dim/80 via-surface-dim/40 to-primary-container/20"></div>
-      <div className="absolute top-1/4 -left-1/4 w-[150%] h-[150%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent opacity-50 blur-3xl pointer-events-none"></div>
-      {/* Content overlay */}
-      <div className="relative z-10 w-full max-w-2xl">
-      <div className="flex items-center gap-3 mb-8">
-      <span className="material-symbols-outlined text-4xl text-primary" style={{fontVariationSettings: '"FILL" 1'}}>lens_blur</span>
-      <h1 className="text-display-lg font-bold tracking-tight text-on-surface">Elevate AI</h1>
-      </div>
-      <h2 className="text-headline-sm font-medium text-primary-fixed-dim mb-6 leading-relaxed">
+      {/* Branding Content */}
+      <div className="relative z-10 text-center max-w-2xl px-8">
+      <h1 className="font-display text-[3.5rem] leading-tight font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-tertiary mb-6">
+                      Elevate AI
+                  </h1>
+      <p className="font-headline text-[1.5rem] font-medium text-on-surface-variant tracking-tight">
                       AI learning and development by ParadigmIT
-                  </h2>
-      <p className="text-body-md text-on-surface-variant max-w-lg leading-relaxed">
-                      Navigate the complexities of human talent. Our neural platform provides unprecedented clarity into organizational capabilities, transforming raw data into actionable, high-fidelity insights.
                   </p>
-      {/* Abstract visual elements */}
-      <div className="mt-16 flex gap-6">
-      <div className="h-1 w-16 bg-gradient-to-r from-primary to-primary-container rounded-full"></div>
-      <div className="h-1 w-8 bg-surface-container-highest rounded-full"></div>
-      <div className="h-1 w-4 bg-surface-container-highest rounded-full"></div>
-      </div>
       </div>
       </div>
       {/* Right Side: Login Form */}
-      <div className="w-full lg:w-[45%] flex items-center justify-center p-6 sm:p-12 bg-surface-dim relative">
+      <div className="w-full lg:w-[45%] h-screen overflow-y-auto flex items-start justify-center p-6 sm:p-12 bg-surface-dim relative">
       {/* Ambient glow for form */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-primary-container/5 blur-[120px] rounded-full pointer-events-none"></div>
       <div className="w-full max-w-md relative z-10">
@@ -120,7 +112,7 @@ export default function Login() {
         name="password" 
         placeholder="••••••••" 
         required 
-        type={showPassword ? 'text' : 'password'}F
+        type={showPassword ? 'text' : 'password'}
       />
       <button
         className="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant hover:text-on-surface transition-colors"
